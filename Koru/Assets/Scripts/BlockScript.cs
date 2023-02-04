@@ -1,25 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class BlockScript : MonoBehaviour
 {
     public int blockId;
+    public int characterNo;
+    public bool isFull;
 
-    [SerializeField] private Color lightColor;
-
-    private Color defaultColor;
+    private CharacterManager cm;
 
     private void Start()
     {
-        defaultColor = GetComponent<Image>().color;
+        cm = GameObject.FindGameObjectWithTag("CharacterManager").GetComponent<CharacterManager>();
     }
 
     public void OnMousePressed()
     {
-        print("touched " + blockId);
-        //GetComponent<Image>().color = lightColor;
+        cm.UpgradeCharacter(gameObject, blockId, characterNo);
     }
 }

@@ -15,11 +15,6 @@ public class MatrisScript : MonoBehaviour
         SetTheMatris();
     }
 
-    void Update()
-    {
-
-    }
-
     private void SetTheMatris()
     {
         for (int i = 0; i < width * width; i++)
