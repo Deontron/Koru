@@ -6,8 +6,9 @@ using UnityEngine.UI;
 public class MatrisScript : MonoBehaviour
 {
     [SerializeField] private GameObject block;
-    [SerializeField] private Color color;
+    [SerializeField] private Color darkDolor;
 
+    private GameObject spawnedBlock;
     private int width = 9;
     void Start()
     {
@@ -23,13 +24,11 @@ public class MatrisScript : MonoBehaviour
     {
         for (int i = 0; i < width * width; i++)
         {
+            spawnedBlock = Instantiate(block, transform);
+            spawnedBlock.GetComponent<BlockScript>().blockId = i;
             if (i % 2 == 0)
             {
-                Instantiate(block, transform).GetComponent<Image>().color = color;
-            }
-            else
-            {
-                Instantiate(block, transform);
+                spawnedBlock.GetComponent<Image>().color = darkDolor;
             }
         }
     }
