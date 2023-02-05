@@ -4,14 +4,17 @@ using UnityEngine;
 
 public class CharacterManager : MonoBehaviour
 {
-    //[SerializeField] public GameObject character1;
-    //[SerializeField] public GameObject character2;
     void Start()
     {
 
     }
 
     void Update()
+    {
+
+    }
+
+    public void PressedBlock(GameObject block, int blockId, int characterNo)
     {
 
     }
