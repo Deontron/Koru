@@ -44,6 +44,7 @@ public class GameManager : MonoBehaviour
     public void UpgradeButton()
     {
         cm.UpgradeCharacter(_block, _blockId, _characterNo);
+        firstClick = true;
     }
 
     private void MoveCharacter(GameObject block)
