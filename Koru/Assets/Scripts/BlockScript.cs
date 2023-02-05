@@ -2,14 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BlockScript : MonoBehaviour
 {
-    public bool isWhite;
+    public char team;
     public int blockId;
     public int characterNo;
     public bool isFull;
 
+    private Color color;
     private CharacterManager cm;
     private GameManager gm;
 
@@ -32,27 +34,36 @@ public class BlockScript : MonoBehaviour
 
     public void Movement(GameObject block)
     {
-        block.GetComponent<BlockScript>().Change(characterNo);
+        if (blockId != block.GetComponent<BlockScript>().blockId && team != block.GetComponent<BlockScript>().team)
+        {
+            color = transform.GetChild(characterNo - 1).gameObject.GetComponent<Image>().color;
+            transform.GetChild(characterNo - 1).gameObject.SetActive(false);
+            isFull = false;
 
-        transform.GetChild(characterNo - 1).gameObject.SetActive(false);
-        characterNo = 0;
-        isFull = false;
+            block.GetComponent<BlockScript>().Change(characterNo, team, color);
 
+            characterNo = 0;
+            team = 'n';
 
-        print("moved");
+            print("moved");
+        }
     }
 
-    public void Change(int _characterNo)
+    public void Change(int _characterNo, char _team, Color _color)
     {
         if (isFull)
         {
             transform.GetChild(characterNo - 1).gameObject.SetActive(false);
             transform.GetChild(_characterNo - 1).gameObject.SetActive(true);
+            transform.GetChild(_characterNo - 1).gameObject.GetComponent<Image>().color = _color;
+            team = _team;
         }
         else
         {
+            team = _team;
             isFull = true;
             characterNo = _characterNo;
+            transform.GetChild(_characterNo - 1).gameObject.GetComponent<Image>().color = _color;
             transform.GetChild(_characterNo - 1).gameObject.SetActive(true);
         }
 

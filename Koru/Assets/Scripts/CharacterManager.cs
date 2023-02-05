@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CharacterManager : MonoBehaviour
 {
@@ -27,6 +28,7 @@ public class CharacterManager : MonoBehaviour
             {
                 block.transform.GetChild(characterNo - 1).gameObject.SetActive(false);
                 block.transform.GetChild(characterNo).gameObject.SetActive(true);
+                block.transform.GetChild(characterNo).gameObject.GetComponent<Image>().color = block.transform.GetChild(characterNo - 1).gameObject.GetComponent<Image>().color;
                 block.GetComponent<BlockScript>().characterNo = characterNo + 1;
             }
         }
@@ -38,8 +40,22 @@ public class CharacterManager : MonoBehaviour
 
     private void DeployCharecter(GameObject block, int blockId)
     {
-        block.transform.GetChild(0).gameObject.SetActive(true);
-        block.GetComponent<BlockScript>().isFull = true;
-        block.GetComponent<BlockScript>().characterNo = 1;
+        if (!(blockId > 17 && blockId < 63))
+        {
+            if (blockId <= 17)
+            {
+                block.transform.GetChild(0).gameObject.GetComponent<Image>().color = Color.black;
+                block.GetComponent<BlockScript>().team = 'b';
+            }
+            else if (blockId >= 63)
+            {
+                block.transform.GetChild(0).gameObject.GetComponent<Image>().color = Color.white;
+                block.GetComponent<BlockScript>().team = 'w';
+            }
+
+            block.transform.GetChild(0).gameObject.SetActive(true);
+            block.GetComponent<BlockScript>().isFull = true;
+            block.GetComponent<BlockScript>().characterNo = 1;
+        }
     }
 }
