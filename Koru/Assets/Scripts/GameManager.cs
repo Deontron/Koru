@@ -43,7 +43,11 @@ public class GameManager : MonoBehaviour
 
     public void UpgradeButton()
     {
-        cm.UpgradeCharacter(_block, _blockId, _characterNo);
+        if (_block != null)
+        {
+
+            cm.UpgradeCharacter(_block, _blockId, _characterNo);
+        }
         firstClick = true;
     }
 
