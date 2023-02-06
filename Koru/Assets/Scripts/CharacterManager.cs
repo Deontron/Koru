@@ -43,11 +43,12 @@ public class CharacterManager : MonoBehaviour
 
     public void UpgradeButton()
     {
-        if (_block != null)
+        if (_block != null && _characterNo >= 0)
         {
             UpgradeCharacter(_block, _blockId, _characterNo);
         }
         firstClick = true;
+        _block = null;
     }
 
     private void MoveCharacter(GameObject block)

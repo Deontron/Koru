@@ -57,6 +57,7 @@ public class BlockScript : MonoBehaviour
             transform.GetChild(_characterNo - 1).gameObject.SetActive(true);
             transform.GetChild(_characterNo - 1).gameObject.GetComponent<Image>().color = _color;
             team = _team;
+            characterNo = _characterNo;
         }
         else
         {
