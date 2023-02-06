@@ -23,8 +23,8 @@ public class BlockScript : MonoBehaviour
 
     public void OnMousePressed()
     {
-        //cm.PressedBlock(gameObject, blockId, characterNo);
-        gm.Pressed(gameObject, blockId, characterNo);
+        cm.PressedBlock(gameObject, blockId, characterNo);
+        //gm.Pressed(gameObject, blockId, characterNo);
     }
 
     public void PrepareToMove()

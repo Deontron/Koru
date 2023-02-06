@@ -5,6 +5,11 @@ using UnityEngine.UI;
 
 public class CharacterManager : MonoBehaviour
 {
+    private bool firstClick = true;
+
+    private GameObject _block;
+    private int _blockId;
+    private int _characterNo;
     void Start()
     {
 
@@ -17,7 +22,44 @@ public class CharacterManager : MonoBehaviour
 
     public void PressedBlock(GameObject block, int blockId, int characterNo)
     {
+        if (firstClick)
+        {
+            _block = block;
+            _blockId = blockId;
+            _characterNo = characterNo;
 
+            if (block.GetComponent<BlockScript>().isFull)
+            {
+                MoveCharacter(_block);
+                firstClick = false;
+            }
+        }
+        else
+        {
+            MoveCharacter(block);
+            firstClick = true;
+        }
+    }
+
+    public void UpgradeButton()
+    {
+        if (_block != null)
+        {
+            UpgradeCharacter(_block, _blockId, _characterNo);
+        }
+        firstClick = true;
+    }
+
+    private void MoveCharacter(GameObject block)
+    {
+        if (firstClick)
+        {
+            _block.GetComponent<BlockScript>().PrepareToMove();
+        }
+        else
+        {
+            _block.GetComponent<BlockScript>().Movement(block);
+        }
     }
 
     public void UpgradeCharacter(GameObject block, int blockId, int characterNo)
