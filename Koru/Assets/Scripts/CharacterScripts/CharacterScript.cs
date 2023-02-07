@@ -37,5 +37,20 @@ public class CharacterScript : MonoBehaviour
                 break;
         }
 
+        for (int i = 0; i < attackRoutes.Count; i++)
+        {
+            if (attackRoutes[i] < 0 || attackRoutes[i] > 80)
+            {
+                attackRoutes.RemoveAt(i);
+            }
+        }
+
+        for (int i = 0; i < moveRoutes.Count; i++)
+        {
+            if (moveRoutes[i] < 0 || moveRoutes[i] > 80)
+            {
+                moveRoutes.RemoveAt(i);
+            }
+        }
     }
 }

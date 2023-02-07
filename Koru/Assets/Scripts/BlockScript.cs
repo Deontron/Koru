@@ -45,6 +45,16 @@ public class BlockScript : MonoBehaviour
         //Get the routes the first block can go
         characterScript.CalculateTheRoutes(characterNo, team);
 
+        foreach (int item in characterScript.moveRoutes)
+        {
+            print("sea: " + item);
+        }
+
+        foreach (int item in characterScript.attackRoutes)
+        {
+            print("sea attack: " + item);
+        }
+
         //Change the color of the blocks we can go
         for (int j = 0; j < characterScript.moveRoutes.Count; j++)
         {
