@@ -4,24 +4,36 @@ using UnityEngine;
 
 public class CharacterScript : MonoBehaviour
 {
-    public int[] moveRoutes;
-    public int[] attackRoutes;
+    public List<int> moveRoutes = new List<int>();
+    public List<int> attackRoutes = new List<int>();
 
     private int blockId;
 
-    public void CalculateTheRoutes(int characterNo)
+    public void CalculateTheRoutes(int characterNo, char team)
     {
-        blockId = transform.parent.GetComponent<BlockScript>().blockId;
+        blockId = GetComponent<BlockScript>().blockId;
 
         switch (characterNo)
         {
             case 1:
-                moveRoutes[0] = blockId + 1;
-                moveRoutes[1] = blockId - 1;
-                moveRoutes[2] = blockId + 9;
+                if (team == 'w')
+                {
+                    moveRoutes.Add(blockId + 1);
+                    moveRoutes.Add(blockId - 1);
+                    moveRoutes.Add(blockId - 9);
 
-                moveRoutes[0] = blockId + 10;
-                moveRoutes[1] = blockId + 8;
+                    attackRoutes.Add(blockId - 10);
+                    attackRoutes.Add(blockId - 8);
+                }
+                else if (team == 'b')
+                {
+                    moveRoutes.Add(blockId + 1);
+                    moveRoutes.Add(blockId - 1);
+                    moveRoutes.Add(blockId + 9);
+
+                    attackRoutes.Add(blockId + 10);
+                    attackRoutes.Add(blockId + 8);
+                }
                 break;
         }
 

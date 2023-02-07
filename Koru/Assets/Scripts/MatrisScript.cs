@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class MatrisScript : MonoBehaviour
 {
+    public GameObject[] blocks = new GameObject[81];
+
     [SerializeField] private GameObject block;
     [SerializeField] private Color darkDolor;
 
@@ -21,6 +23,11 @@ public class MatrisScript : MonoBehaviour
         {
             spawnedBlock = Instantiate(block, transform);
             spawnedBlock.GetComponent<BlockScript>().blockId = i;
+            spawnedBlock.name = "Block " + i;
+
+            blocks[i] = spawnedBlock;
+            spawnedBlock.GetComponent<BlockScript>().blocksToGo = blocks;
+
             if (i % 2 == 0)
             {
                 spawnedBlock.GetComponent<Image>().color = darkDolor;
