@@ -8,49 +8,47 @@ public class CharacterScript : MonoBehaviour
     public List<int> attackRoutes = new List<int>();
 
     private int blockId;
+    private int blockX;
+    private int blockY;
 
     public void CalculateTheRoutes(int characterNo, char team)
     {
+        //Separate the block id to x and y index
         blockId = GetComponent<BlockScript>().blockId;
+        blockX = blockId % 9;
+        blockY = blockId / 9;
 
         switch (characterNo)
         {
             case 1:
                 if (team == 'w')
                 {
-                    moveRoutes.Add(blockId + 1);
-                    moveRoutes.Add(blockId - 1);
-                    moveRoutes.Add(blockId - 9);
+                    ControlAndAdd(moveRoutes, blockX + 1, blockY);
+                    ControlAndAdd(moveRoutes, blockX - 1, blockY);
+                    ControlAndAdd(moveRoutes, blockX, blockY + 1);
 
-                    attackRoutes.Add(blockId - 10);
-                    attackRoutes.Add(blockId - 8);
+                    ControlAndAdd(attackRoutes, blockX + 1, blockY + 1);
+                    ControlAndAdd(attackRoutes, blockX - 1, blockY + 1);
                 }
                 else if (team == 'b')
                 {
-                    moveRoutes.Add(blockId + 1);
-                    moveRoutes.Add(blockId - 1);
-                    moveRoutes.Add(blockId + 9);
+                    ControlAndAdd(moveRoutes, blockX + 1, blockY);
+                    ControlAndAdd(moveRoutes, blockX - 1, blockY);
+                    ControlAndAdd(moveRoutes, blockX, blockY - 1);
 
-                    attackRoutes.Add(blockId + 10);
-                    attackRoutes.Add(blockId + 8);
+                    ControlAndAdd(attackRoutes, blockX + 1, blockY - 1);
+                    ControlAndAdd(attackRoutes, blockX - 1, blockY - 1);
                 }
                 break;
         }
+    }
 
-        for (int i = 0; i < attackRoutes.Count; i++)
+    private void ControlAndAdd(List<int> list, int valueX, int valueY)
+    {
+        if (valueX < 9 && valueX >= 0 && valueY < 9 && valueY >= 0)
         {
-            if (attackRoutes[i] < 0 || attackRoutes[i] > 80)
-            {
-                attackRoutes.RemoveAt(i);
-            }
-        }
-
-        for (int i = 0; i < moveRoutes.Count; i++)
-        {
-            if (moveRoutes[i] < 0 || moveRoutes[i] > 80)
-            {
-                moveRoutes.RemoveAt(i);
-            }
+            int value = valueY * 9 + valueX;
+            list.Add(value);
         }
     }
 }

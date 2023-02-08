@@ -97,13 +97,13 @@ public class CharacterManager : MonoBehaviour
         //Deploy character if the clicked block is on top or bottom of the matris
         if (!(blockId > 17 && blockId < 63))
         {
-            if (blockId <= 17)
+            if (blockId >= 63)
             {
                 //Make the character black if the clicked block is on the top of the matris
                 block.transform.GetChild(0).gameObject.GetComponent<Image>().color = Color.black;
                 block.GetComponent<BlockScript>().team = 'b';
             }
-            else if (blockId >= 63)
+            else if (blockId <= 17)
             {
                 //Make the character white if the clicked block is on the bottom of the matris
                 block.transform.GetChild(0).gameObject.GetComponent<Image>().color = Color.white;
