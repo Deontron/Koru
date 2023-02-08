@@ -42,6 +42,9 @@ public class CharacterManager : MonoBehaviour
         {
             //Send the second block to first block
             MoveCharacter(block);
+
+            //Reset the routes
+            _block.GetComponent<BlockScript>().BackToNormal();
             firstClick = true;
         }
     }
@@ -53,6 +56,9 @@ public class CharacterManager : MonoBehaviour
         if (_block != null && _characterNo >= 0)
         {
             UpgradeCharacter(_block, _blockId, _characterNo);
+
+            //Reset the routes
+            _block.GetComponent<BlockScript>().BackToNormal();
         }
         firstClick = true;
         //Clear the value not to cause any error

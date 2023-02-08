@@ -46,14 +46,14 @@ public class BlockScript : MonoBehaviour
         characterScript.CalculateTheRoutes(characterNo, team);
 
         //Change the color of the blocks we can go
-        for (int j = 0; j < characterScript.moveRoutes.Count; j++)
-        {
-            blocksToGo[characterScript.moveRoutes[j]].GetComponent<Image>().color = Color.green;
-        }
-
         for (int j = 0; j < characterScript.attackRoutes.Count; j++)
         {
             blocksToGo[characterScript.attackRoutes[j]].GetComponent<Image>().color = Color.yellow;
+        }
+
+        for (int j = 0; j < characterScript.moveRoutes.Count; j++)
+        {
+            blocksToGo[characterScript.moveRoutes[j]].GetComponent<Image>().color = Color.green;
         }
     }
 
@@ -103,20 +103,7 @@ public class BlockScript : MonoBehaviour
                 movePermission = false;
             }
 
-            //Change back the first block to normal
-            for (int j = 0; j < characterScript.moveRoutes.Count; j++)
-            {
-                blocksToGo[characterScript.moveRoutes[j]].GetComponent<BlockScript>().BackToNormal();
-            }
-
-            for (int j = 0; j < characterScript.attackRoutes.Count; j++)
-            {
-                blocksToGo[characterScript.attackRoutes[j]].GetComponent<BlockScript>().BackToNormal();
-            }
-
-            //Clear the first blocks routes
-            characterScript.moveRoutes.Clear();
-            characterScript.attackRoutes.Clear();
+            BackToNormal();
         }
     }
 
@@ -145,6 +132,24 @@ public class BlockScript : MonoBehaviour
     }
 
     public void BackToNormal()
+    {
+        //Change back the first block to normal
+        for (int j = 0; j < characterScript.moveRoutes.Count; j++)
+        {
+            blocksToGo[characterScript.moveRoutes[j]].GetComponent<BlockScript>().BackToDefaultColor();
+        }
+
+        for (int j = 0; j < characterScript.attackRoutes.Count; j++)
+        {
+            blocksToGo[characterScript.attackRoutes[j]].GetComponent<BlockScript>().BackToDefaultColor();
+        }
+
+        //Clear the first blocks routes
+        characterScript.moveRoutes.Clear();
+        characterScript.attackRoutes.Clear();
+    }
+
+    public void BackToDefaultColor()
     {
         //Change the color to default color
         GetComponent<Image>().color = blockColor;
