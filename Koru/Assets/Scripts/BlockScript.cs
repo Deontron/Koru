@@ -27,7 +27,7 @@ public class BlockScript : MonoBehaviour
         //Blocks deafult color
         blockColor = GetComponent<Image>().color;
 
-        characterScript = GetComponent<CharacterScript>();
+        characterScript = GameObject.FindGameObjectWithTag("CharacterManager").GetComponent<CharacterScript>();
 
         cm = GameObject.FindGameObjectWithTag("CharacterManager").GetComponent<CharacterManager>();
         //gm = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
@@ -36,7 +36,7 @@ public class BlockScript : MonoBehaviour
     //First, this function runs if you click any block
     public void OnMousePressed()
     {
-        cm.PressedBlock(gameObject, blockId, characterNo);
+        cm.PressedBlock(gameObject, blockId, characterNo, team);
         //gm.Pressed(gameObject, blockId, characterNo);
     }
 
@@ -44,7 +44,7 @@ public class BlockScript : MonoBehaviour
     public void PrepareToMove()
     {
         //Get the routes the first block can go
-        characterScript.CalculateTheRoutes(characterNo, team);
+        characterScript.CalculateTheRoutes(characterNo, team, blockId);
 
         teamColor = transform.GetChild(characterNo - 1).gameObject.GetComponent<Image>().color;
 

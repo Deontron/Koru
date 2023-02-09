@@ -530,6 +530,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1382504362}
   - component: {fileID: 1382504361}
+  - component: {fileID: 1382504363}
   m_Layer: 0
   m_Name: CharacterManager
   m_TagString: CharacterManager
@@ -549,6 +550,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0577adc1cceb4448b0c39b773e2deb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  blocks: []
 --- !u!4 &1382504362
 Transform:
   m_ObjectHideFlags: 0
@@ -564,6 +566,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1382504363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1382504360}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7172df97d526ba54bbe13004e9a7272d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveRoutes: 
+  attackRoutes: 
 --- !u!1 &1579612499
 GameObject:
   m_ObjectHideFlags: 0

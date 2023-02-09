@@ -7,14 +7,12 @@ public class CharacterScript : MonoBehaviour
     public List<int> moveRoutes = new List<int>();
     public List<int> attackRoutes = new List<int>();
 
-    private int blockId;
     private int blockX;
     private int blockY;
 
-    public void CalculateTheRoutes(int characterNo, char team)
+    public void CalculateTheRoutes(int characterNo, char team, int blockId)
     {
         //Separate the block id to x and y index
-        blockId = GetComponent<BlockScript>().blockId;
         blockX = blockId % 9;
         blockY = blockId / 9;
 

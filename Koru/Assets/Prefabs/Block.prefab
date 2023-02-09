@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8838985141662590160}
   - component: {fileID: 8838985141662590175}
   - component: {fileID: 8838985141662590174}
-  - component: {fileID: 2312825472552734651}
+  - component: {fileID: -654879726394048720}
   m_Layer: 5
   m_Name: Block
   m_TagString: Block
@@ -110,7 +110,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.5882353, g: 0.5882353, b: 0.5882353, a: 1}
-    m_DisabledColor: {r: 0, g: 0, b: 0, a: 1}
+    m_DisabledColor: {r: 1, g: 0, b: 0, a: 0.39215687}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -156,10 +156,12 @@ MonoBehaviour:
   team: 0
   blockId: 0
   characterNo: 0
+  isInfinity: 0
   isFull: 0
   blockColor: {r: 0, g: 0, b: 0, a: 0}
+  teamColor: {r: 0, g: 0, b: 0, a: 0}
   blocksToGo: []
---- !u!114 &2312825472552734651
+--- !u!114 &-654879726394048720
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -168,11 +170,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 8838985141662590172}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7172df97d526ba54bbe13004e9a7272d, type: 3}
+  m_Script: {fileID: 11500000, guid: b9dc90efe0ff59849b1ca8e600cea66b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveRoutes: 
-  attackRoutes: 
 --- !u!1001 &1667062125261526686
 PrefabInstance:
   m_ObjectHideFlags: 0

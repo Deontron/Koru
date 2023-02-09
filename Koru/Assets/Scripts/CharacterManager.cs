@@ -6,18 +6,31 @@ using UnityEngine.UI;
 public class CharacterManager : MonoBehaviour
 {
     private bool firstClick = true;
-
+    private MatrisScript ms;
+    private CharacterScript cs;
+    public GameObject[] blocks;
     private GameObject _block;
     private int _blockId;
     private int _characterNo;
+    private char _team;
+    private bool secondWhiteInfinity;
+    private bool secondBlackInfinity;
+
+    private void Start()
+    {
+        ms = GameObject.FindGameObjectWithTag("Matris").GetComponent<MatrisScript>();
+        cs = GetComponent<CharacterScript>();
+        blocks = ms.blocks;
+    }
 
     //This function is call when clicked any block
-    public void PressedBlock(GameObject block, int blockId, int characterNo)
+    public void PressedBlock(GameObject block, int blockId, int characterNo, char team)
     {
         if (firstClick)
         {
             //Take the values if this is the first click
             _block = block;
+            _team = team;
             _blockId = blockId;
             _characterNo = characterNo;
 
@@ -33,9 +46,8 @@ public class CharacterManager : MonoBehaviour
         {
             if (block.GetComponent<BlockScript>().isInfinity && block.GetComponent<BlockScript>().team != _block.GetComponent<BlockScript>().team)
             {
-                //Change the first block to infinity if the second block is infinity
-                _block.GetComponent<BlockScript>().ChangeToInfinity();
-                print("sea");
+                //Change the first block to infinity or hit the enemy infinity if the second block is infinity
+                HitTheInfinity(_block, block);
             }
             else
             {
@@ -120,6 +132,52 @@ public class CharacterManager : MonoBehaviour
             block.transform.GetChild(0).gameObject.SetActive(true);
             block.GetComponent<BlockScript>().isFull = true;
             block.GetComponent<BlockScript>().characterNo = 1;
+        }
+    }
+
+    private void HitTheInfinity(GameObject firstBlock, GameObject secondBlock)
+    {
+        cs.CalculateTheRoutes(_characterNo, _team, _blockId);
+
+        if (cs.attackRoutes.Contains(secondBlock.GetComponent<BlockScript>().blockId))
+        {
+            if (_team == 'w')
+            {
+                if (!secondWhiteInfinity)
+                {
+                    firstBlock.GetComponent<BlockScript>().ChangeToInfinity();
+                    secondWhiteInfinity = true;
+                }
+                else
+                {
+                    for (int i = 0; i < blocks.Length; i++)
+                    {
+                        if (blocks[i].GetComponent<BlockScript>().isInfinity)
+                        {
+                            blocks[i].GetComponent<InfinityScript>().GetStun('b');
+                        }
+                    }
+                }
+
+            }
+            else if (_team == 'b')
+            {
+                if (!secondBlackInfinity)
+                {
+                    firstBlock.GetComponent<BlockScript>().ChangeToInfinity();
+                    secondBlackInfinity = true;
+                }
+                else
+                {
+                    for (int i = 0; i < blocks.Length; i++)
+                    {
+                        if (blocks[i].GetComponent<BlockScript>().isInfinity)
+                        {
+                            blocks[i].GetComponent<InfinityScript>().GetStun('w');
+                        }
+                    }
+                }
+            }
         }
     }
 }
