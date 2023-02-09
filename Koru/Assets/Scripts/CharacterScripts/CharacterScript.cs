@@ -48,6 +48,10 @@ public class CharacterScript : MonoBehaviour
                     ControlAndAdd(moveRoutes, blockX - 2, blockY - 2);
                     ControlAndAdd(moveRoutes, blockX - 2, blockY + 2);
                     ControlAndAdd(moveRoutes, blockX + 2, blockY - 2);
+                    ControlAndAdd(moveRoutes, blockX + 1, blockY + 1);
+                    ControlAndAdd(moveRoutes, blockX - 1, blockY - 1);
+                    ControlAndAdd(moveRoutes, blockX - 1, blockY + 1);
+                    ControlAndAdd(moveRoutes, blockX + 1, blockY - 1);
 
                     ControlAndAdd(attackRoutes, blockX + 1, blockY);
                     ControlAndAdd(attackRoutes, blockX - 1, blockY);
@@ -60,6 +64,10 @@ public class CharacterScript : MonoBehaviour
                     ControlAndAdd(moveRoutes, blockX - 2, blockY - 2);
                     ControlAndAdd(moveRoutes, blockX - 2, blockY + 2);
                     ControlAndAdd(moveRoutes, blockX + 2, blockY - 2);
+                    ControlAndAdd(moveRoutes, blockX + 1, blockY + 1);
+                    ControlAndAdd(moveRoutes, blockX - 1, blockY - 1);
+                    ControlAndAdd(moveRoutes, blockX - 1, blockY + 1);
+                    ControlAndAdd(moveRoutes, blockX + 1, blockY - 1);
 
                     ControlAndAdd(attackRoutes, blockX + 1, blockY);
                     ControlAndAdd(attackRoutes, blockX - 1, blockY);
@@ -166,14 +174,38 @@ public class CharacterScript : MonoBehaviour
                 }
                 else if (team == 'b')
                 {
-                    ControlAndAdd(moveRoutes, blockX + 1, blockY + 3);
-                    ControlAndAdd(moveRoutes, blockX - 1, blockY + 3);
-                    ControlAndAdd(moveRoutes, blockX + 1, blockY - 3);
-                    ControlAndAdd(moveRoutes, blockX - 1, blockY - 3);
-                    ControlAndAdd(moveRoutes, blockX + 2, blockY + 1);
-                    ControlAndAdd(moveRoutes, blockX - 2, blockY + 1);
-                    ControlAndAdd(moveRoutes, blockX + 2, blockY - 1);
-                    ControlAndAdd(moveRoutes, blockX - 2, blockY - 1);
+                    ControlAndAdd(moveRoutes, blockX + 1, blockY);
+                    ControlAndAdd(moveRoutes, blockX + 2, blockY);
+                    ControlAndAdd(moveRoutes, blockX + 3, blockY);
+                    ControlAndAdd(moveRoutes, blockX + 4, blockY);
+                    ControlAndAdd(moveRoutes, blockX - 1, blockY);
+                    ControlAndAdd(moveRoutes, blockX - 2, blockY);
+                    ControlAndAdd(moveRoutes, blockX - 3, blockY);
+                    ControlAndAdd(moveRoutes, blockX - 4, blockY);
+                    ControlAndAdd(moveRoutes, blockX, blockY + 1);
+                    ControlAndAdd(moveRoutes, blockX, blockY + 2);
+                    ControlAndAdd(moveRoutes, blockX, blockY + 3);
+                    ControlAndAdd(moveRoutes, blockX, blockY + 4);
+                    ControlAndAdd(moveRoutes, blockX, blockY - 1);
+                    ControlAndAdd(moveRoutes, blockX, blockY - 2);
+                    ControlAndAdd(moveRoutes, blockX, blockY - 3);
+                    ControlAndAdd(moveRoutes, blockX, blockY - 4);
+                    ControlAndAdd(moveRoutes, blockX + 1, blockY + 1);
+                    ControlAndAdd(moveRoutes, blockX + 2, blockY + 2);
+                    ControlAndAdd(moveRoutes, blockX + 3, blockY + 3);
+                    ControlAndAdd(moveRoutes, blockX + 4, blockY + 4);
+                    ControlAndAdd(moveRoutes, blockX - 1, blockY - 1);
+                    ControlAndAdd(moveRoutes, blockX - 2, blockY - 2);
+                    ControlAndAdd(moveRoutes, blockX - 3, blockY - 3);
+                    ControlAndAdd(moveRoutes, blockX - 4, blockY - 4);
+                    ControlAndAdd(moveRoutes, blockX - 1, blockY + 1);
+                    ControlAndAdd(moveRoutes, blockX - 2, blockY + 2);
+                    ControlAndAdd(moveRoutes, blockX - 3, blockY + 3);
+                    ControlAndAdd(moveRoutes, blockX - 4, blockY + 4);
+                    ControlAndAdd(moveRoutes, blockX + 1, blockY - 1);
+                    ControlAndAdd(moveRoutes, blockX + 2, blockY - 2);
+                    ControlAndAdd(moveRoutes, blockX + 3, blockY - 3);
+                    ControlAndAdd(moveRoutes, blockX + 4, blockY - 4);
 
                     attackRoutes = moveRoutes;
                 }

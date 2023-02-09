@@ -41,7 +41,14 @@ public class CharacterManager : MonoBehaviour
         else
         {
             //Send the second block to first block
-            MoveCharacter(block);
+            if (block.GetComponent<BlockScript>().isInfinity)
+            {
+                print("This is SPARTA!");
+            }
+            else
+            {
+                MoveCharacter(block);
+            }
 
             //Reset the routes
             _block.GetComponent<BlockScript>().BackToNormal();

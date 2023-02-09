@@ -9,6 +9,7 @@ public class BlockScript : MonoBehaviour
     public char team;
     public int blockId;
     public int characterNo;
+    public bool isInfinity;
     public bool isFull;
     public Color blockColor;
 
