@@ -210,6 +210,35 @@ public class CharacterScript : MonoBehaviour
                     attackRoutes = moveRoutes;
                 }
                 break;
+
+            case 6:
+                if (team == 'w')
+                {
+                    ControlAndAdd(moveRoutes, blockX + 1, blockY);
+                    ControlAndAdd(moveRoutes, blockX - 1, blockY);
+                    ControlAndAdd(moveRoutes, blockX + 1, blockY - 1);
+                    ControlAndAdd(moveRoutes, blockX - 1, blockY - 1);
+                    ControlAndAdd(moveRoutes, blockX + 1, blockY + 1);
+                    ControlAndAdd(moveRoutes, blockX - 1, blockY + 1);
+                    ControlAndAdd(moveRoutes, blockX, blockY - 1);
+                    ControlAndAdd(moveRoutes, blockX, blockY + 1);
+
+                    attackRoutes = moveRoutes;
+                }
+                else if (team == 'b')
+                {
+                    ControlAndAdd(moveRoutes, blockX + 1, blockY);
+                    ControlAndAdd(moveRoutes, blockX - 1, blockY);
+                    ControlAndAdd(moveRoutes, blockX + 1, blockY - 1);
+                    ControlAndAdd(moveRoutes, blockX - 1, blockY - 1);
+                    ControlAndAdd(moveRoutes, blockX + 1, blockY + 1);
+                    ControlAndAdd(moveRoutes, blockX - 1, blockY + 1);
+                    ControlAndAdd(moveRoutes, blockX, blockY - 1);
+                    ControlAndAdd(moveRoutes, blockX, blockY + 1);
+
+                    attackRoutes = moveRoutes;
+                }
+                break;
         }
     }
 

@@ -12,8 +12,8 @@ public class BlockScript : MonoBehaviour
     public bool isInfinity;
     public bool isFull;
     public Color blockColor;
+    public Color teamColor;
 
-    private Color teamColor;
     private CharacterManager cm;
     private GameManager gm;
     private bool movePermission;
@@ -45,6 +45,8 @@ public class BlockScript : MonoBehaviour
     {
         //Get the routes the first block can go
         characterScript.CalculateTheRoutes(characterNo, team);
+
+        teamColor = transform.GetChild(characterNo - 1).gameObject.GetComponent<Image>().color;
 
         //Change the color of the blocks we can go
         for (int j = 0; j < characterScript.attackRoutes.Count; j++)
@@ -91,12 +93,17 @@ public class BlockScript : MonoBehaviour
             if (movePermission)
             {
                 //Changes the values of first block
-                teamColor = transform.GetChild(characterNo - 1).gameObject.GetComponent<Image>().color;
                 transform.GetChild(characterNo - 1).gameObject.SetActive(false);
                 isFull = false;
 
                 //Tells the second block to change to the first block
                 secondBlock.Change(characterNo, team, teamColor);
+
+                if (isInfinity)
+                {
+                    secondBlock.isInfinity = true;
+                    isInfinity = false;
+                }
 
                 characterNo = 0;
                 team = 'n';
@@ -129,7 +136,21 @@ public class BlockScript : MonoBehaviour
             transform.GetChild(_characterNo - 1).gameObject.GetComponent<Image>().color = _teamColor;
             transform.GetChild(_characterNo - 1).gameObject.SetActive(true);
         }
+    }
 
+    public void ChangeToInfinity()
+    {
+        characterNo = 6;
+
+        for (int i = 0; i < (characterNo - 1); i++)
+        {
+            transform.GetChild(i).gameObject.SetActive(false);
+        }
+
+        transform.GetChild(characterNo - 1).gameObject.SetActive(true);
+        transform.GetChild(characterNo - 1).gameObject.GetComponent<Image>().color = teamColor;
+        isFull = true;
+        isInfinity = true;
     }
 
     public void BackToNormal()

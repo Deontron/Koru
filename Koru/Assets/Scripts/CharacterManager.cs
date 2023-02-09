@@ -10,15 +10,6 @@ public class CharacterManager : MonoBehaviour
     private GameObject _block;
     private int _blockId;
     private int _characterNo;
-    void Start()
-    {
-
-    }
-
-    void Update()
-    {
-
-    }
 
     //This function is call when clicked any block
     public void PressedBlock(GameObject block, int blockId, int characterNo)
@@ -40,13 +31,15 @@ public class CharacterManager : MonoBehaviour
         }
         else
         {
-            //Send the second block to first block
-            if (block.GetComponent<BlockScript>().isInfinity)
+            if (block.GetComponent<BlockScript>().isInfinity && block.GetComponent<BlockScript>().team != _block.GetComponent<BlockScript>().team)
             {
-                print("This is SPARTA!");
+                //Change the first block to infinity if the second block is infinity
+                _block.GetComponent<BlockScript>().ChangeToInfinity();
+                print("sea");
             }
             else
             {
+                //Send the second block to first block
                 MoveCharacter(block);
             }
 

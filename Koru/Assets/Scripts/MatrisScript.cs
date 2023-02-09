@@ -27,6 +27,12 @@ public class MatrisScript : MonoBehaviour
 
             blocks[i] = spawnedBlock;
             spawnedBlock.GetComponent<BlockScript>().blocksToGo = blocks;
+            spawnedBlock.GetComponent<BlockScript>().teamColor = Color.white;
+
+            if (i > 62)
+            {
+                spawnedBlock.GetComponent<BlockScript>().teamColor = Color.black;
+            }
 
             if (i % 2 == 0)
             {
