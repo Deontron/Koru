@@ -86,7 +86,7 @@ public class CharacterScript : MonoBehaviour
                     ControlAndAdd(moveRoutes, blockX, blockY + 3);
                     ControlAndAdd(moveRoutes, blockX, blockY - 1);
 
-                    attackRoutes = moveRoutes;
+                    Equalize(moveRoutes, attackRoutes);
                 }
                 else if (team == 'b')
                 {
@@ -99,7 +99,7 @@ public class CharacterScript : MonoBehaviour
                     ControlAndAdd(moveRoutes, blockX, blockY - 3);
                     ControlAndAdd(moveRoutes, blockX, blockY + 1);
 
-                    attackRoutes = moveRoutes;
+                    Equalize(moveRoutes, attackRoutes);
                 }
                 break;
 
@@ -115,7 +115,7 @@ public class CharacterScript : MonoBehaviour
                     ControlAndAdd(moveRoutes, blockX + 2, blockY - 1);
                     ControlAndAdd(moveRoutes, blockX - 2, blockY - 1);
 
-                    attackRoutes = moveRoutes;
+                    Equalize(moveRoutes, attackRoutes);
                 }
                 else if (team == 'b')
                 {
@@ -128,7 +128,7 @@ public class CharacterScript : MonoBehaviour
                     ControlAndAdd(moveRoutes, blockX + 2, blockY - 1);
                     ControlAndAdd(moveRoutes, blockX - 2, blockY - 1);
 
-                    attackRoutes = moveRoutes;
+                    Equalize(moveRoutes, attackRoutes);
                 }
                 break;
 
@@ -168,7 +168,7 @@ public class CharacterScript : MonoBehaviour
                     ControlAndAdd(moveRoutes, blockX + 3, blockY - 3);
                     ControlAndAdd(moveRoutes, blockX + 4, blockY - 4);
 
-                    attackRoutes = moveRoutes;
+                    Equalize(moveRoutes, attackRoutes);
                 }
                 else if (team == 'b')
                 {
@@ -205,7 +205,7 @@ public class CharacterScript : MonoBehaviour
                     ControlAndAdd(moveRoutes, blockX + 3, blockY - 3);
                     ControlAndAdd(moveRoutes, blockX + 4, blockY - 4);
 
-                    attackRoutes = moveRoutes;
+                    Equalize(moveRoutes, attackRoutes);
                 }
                 break;
 
@@ -221,7 +221,7 @@ public class CharacterScript : MonoBehaviour
                     ControlAndAdd(moveRoutes, blockX, blockY - 1);
                     ControlAndAdd(moveRoutes, blockX, blockY + 1);
 
-                    attackRoutes = moveRoutes;
+                    Equalize(moveRoutes, attackRoutes);
                 }
                 else if (team == 'b')
                 {
@@ -234,7 +234,7 @@ public class CharacterScript : MonoBehaviour
                     ControlAndAdd(moveRoutes, blockX, blockY - 1);
                     ControlAndAdd(moveRoutes, blockX, blockY + 1);
 
-                    attackRoutes = moveRoutes;
+                    Equalize(moveRoutes, attackRoutes);
                 }
                 break;
         }
@@ -246,6 +246,14 @@ public class CharacterScript : MonoBehaviour
         {
             int value = valueY * 9 + valueX;
             list.Add(value);
+        }
+    }
+
+    private void Equalize(List<int> firstList, List<int> secondList)
+    {
+        for (int i = 0; i < firstList.Count; i++)
+        {
+            secondList.Add(firstList[i]);
         }
     }
 }

@@ -58,6 +58,7 @@ public class CharacterManager : MonoBehaviour
             //Reset the routes
             _block.GetComponent<BlockScript>().BackToNormal();
             firstClick = true;
+            _block = null;
         }
     }
 
@@ -137,8 +138,6 @@ public class CharacterManager : MonoBehaviour
 
     private void HitTheInfinity(GameObject firstBlock, GameObject secondBlock)
     {
-        cs.CalculateTheRoutes(_characterNo, _team, _blockId);
-
         if (cs.attackRoutes.Contains(secondBlock.GetComponent<BlockScript>().blockId))
         {
             if (_team == 'w')
