@@ -28,18 +28,21 @@ public class CharacterManager : MonoBehaviour
     {
         if (firstClick)
         {
-            //Take the values if this is the first click
-            _block = block;
-            _team = team;
-            _blockId = blockId;
-            _characterNo = characterNo;
-
-            //Do nothing if this block is empty
-            if (block.GetComponent<BlockScript>().isFull)
+            if (block.GetComponent<BlockScript>().playPermission)
             {
-                //Tell the first block to prepare
-                MoveCharacter(_block);
-                firstClick = false;
+                //Take the values if this is the first click
+                _block = block;
+                _team = team;
+                _blockId = blockId;
+                _characterNo = characterNo;
+
+                //Do nothing if this block is empty
+                if (_block.GetComponent<BlockScript>().isFull)
+                {
+                    //Tell the first block to prepare
+                    MoveCharacter(_block);
+                    firstClick = false;
+                }
             }
         }
         else
