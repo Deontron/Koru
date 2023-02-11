@@ -15,13 +15,12 @@ public class BlockScript : MonoBehaviour
     public Color blockColor;
     public Color teamColor;
 
+    public GameObject[] blocksToGo;
+
     private CharacterManager cm;
-    private GameManager gm;
     private bool movePermission;
     private BlockScript secondBlock;
     private CharacterScript characterScript;
-
-    public GameObject[] blocksToGo;
 
     private void Start()
     {
@@ -31,14 +30,12 @@ public class BlockScript : MonoBehaviour
         characterScript = GameObject.FindGameObjectWithTag("CharacterManager").GetComponent<CharacterScript>();
 
         cm = GameObject.FindGameObjectWithTag("CharacterManager").GetComponent<CharacterManager>();
-        //gm = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
     }
 
     //First, this function runs if you click any block
     public void OnMousePressed()
     {
         cm.PressedBlock(gameObject, blockId, characterNo, team);
-        //gm.Pressed(gameObject, blockId, characterNo);
     }
 
     //Character manager calls this function
@@ -52,12 +49,18 @@ public class BlockScript : MonoBehaviour
         //Change the color of the blocks we can go
         for (int j = 0; j < characterScript.attackRoutes.Count; j++)
         {
-            blocksToGo[characterScript.attackRoutes[j]].GetComponent<Image>().color = Color.yellow;
+            if (blocksToGo[characterScript.attackRoutes[j]].GetComponent<BlockScript>().isFull)
+            {
+                blocksToGo[characterScript.attackRoutes[j]].GetComponent<Image>().color = Color.yellow;
+            }
         }
 
         for (int j = 0; j < characterScript.moveRoutes.Count; j++)
         {
-            blocksToGo[characterScript.moveRoutes[j]].GetComponent<Image>().color = Color.green;
+            if (!blocksToGo[characterScript.moveRoutes[j]].GetComponent<BlockScript>().isFull)
+            {
+                blocksToGo[characterScript.moveRoutes[j]].GetComponent<Image>().color = Color.green;
+            }
         }
     }
 

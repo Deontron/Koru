@@ -21,12 +21,12 @@ public class CharacterScript : MonoBehaviour
             case 1:
                 if (team == 'w')
                 {
-                    ControlAndAdd(moveRoutes, blockX + 1, blockY);
                     ControlAndAdd(moveRoutes, blockX - 1, blockY);
+                    ControlAndAdd(moveRoutes, blockX + 1, blockY);
                     ControlAndAdd(moveRoutes, blockX, blockY + 1);
 
-                    ControlAndAdd(attackRoutes, blockX + 1, blockY + 1);
                     ControlAndAdd(attackRoutes, blockX - 1, blockY + 1);
+                    ControlAndAdd(attackRoutes, blockX + 1, blockY + 1);
                 }
                 else if (team == 'b')
                 {
@@ -40,14 +40,14 @@ public class CharacterScript : MonoBehaviour
                 break;
 
             case 2:
-                ControlAndAdd(moveRoutes, blockX + 2, blockY + 2);
+                ControlAndAdd(moveRoutes, blockX - 1, blockY - 1);
+                ControlAndAdd(moveRoutes, blockX + 1, blockY + 1);
+                ControlAndAdd(moveRoutes, blockX - 1, blockY + 1);
+                ControlAndAdd(moveRoutes, blockX + 1, blockY - 1); 
                 ControlAndAdd(moveRoutes, blockX - 2, blockY - 2);
+                ControlAndAdd(moveRoutes, blockX + 2, blockY + 2);
                 ControlAndAdd(moveRoutes, blockX - 2, blockY + 2);
                 ControlAndAdd(moveRoutes, blockX + 2, blockY - 2);
-                ControlAndAdd(moveRoutes, blockX + 1, blockY + 1);
-                ControlAndAdd(moveRoutes, blockX - 1, blockY - 1);
-                ControlAndAdd(moveRoutes, blockX - 1, blockY + 1);
-                ControlAndAdd(moveRoutes, blockX + 1, blockY - 1);
 
                 ControlAndAdd(attackRoutes, blockX + 1, blockY);
                 ControlAndAdd(attackRoutes, blockX - 1, blockY);
