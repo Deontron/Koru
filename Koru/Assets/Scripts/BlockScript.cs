@@ -11,7 +11,7 @@ public class BlockScript : MonoBehaviour
     public int characterNo;
     public bool isInfinity;
     public bool isFull;
-    public bool playPermission = true;
+    //public bool playPermission = true;
     public Color blockColor;
     public Color teamColor;
 

@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class InfinityScript : MonoBehaviour
 {
     private char _team;
-    private CharacterScript cm;
 
     public void GetStun(char team)
     {
