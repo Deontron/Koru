@@ -9,11 +9,11 @@ public class CharacterScript : MonoBehaviour
     public List<int> moveRoutes = new List<int>();
     public List<int> attackRoutes = new List<int>();
 
-    public GameObject[] blocks;
-    private GameObject targetBlock;
+    private GameObject[] blocks;
     private int blockX;
     private int blockY;
 
+    //Used in calculating routes
     private int idValue;
     private int x = 0;
     private int y = 0;
@@ -53,10 +53,10 @@ public class CharacterScript : MonoBehaviour
                 break;
 
             case 2:
-                MoveLine(1, 1, 2);
-                MoveLine(-1, -1, 2);
-                MoveLine(1, -1, 2);
-                MoveLine(-1, 1, 2);
+                MoveAndAttackLine(1, 1, 2, team, false);
+                MoveAndAttackLine(-1, -1, 2, team, false);
+                MoveAndAttackLine(1, -1, 2, team, false);
+                MoveAndAttackLine(-1, 1, 2, team, false);
 
                 ControlAndAdd(attackRoutes, blockX + 1, blockY, team);
                 ControlAndAdd(attackRoutes, blockX - 1, blockY, team);
@@ -67,19 +67,18 @@ public class CharacterScript : MonoBehaviour
             case 3:
                 if (team == 'w')
                 {
-                    MoveAndAttackLine(0, 1, 3, team);
-                    MoveAndAttackLine(1, 0, 2, team);
-                    MoveAndAttackLine(-1, 0, 2, team);
-                    MoveAndAttackLine(0, -1, 1, team);
+                    MoveAndAttackLine(0, 1, 3, team, true);
+                    MoveAndAttackLine(1, 0, 2, team, true);
+                    MoveAndAttackLine(-1, 0, 2, team, true);
+                    MoveAndAttackLine(0, -1, 1, team, true);
                 }
                 else if (team == 'b')
                 {
-                    MoveAndAttackLine(0, -1, 3, team);
-                    MoveAndAttackLine(1, 0, 2, team);
-                    MoveAndAttackLine(-1, 0, 2, team);
-                    MoveAndAttackLine(0, 1, 1, team);
+                    MoveAndAttackLine(0, -1, 3, team, true);
+                    MoveAndAttackLine(1, 0, 2, team, true);
+                    MoveAndAttackLine(-1, 0, 2, team, true);
+                    MoveAndAttackLine(0, 1, 1, team, true);
                 }
-
                 break;
 
             case 4:
@@ -96,91 +95,89 @@ public class CharacterScript : MonoBehaviour
                 break;
 
             case 5:
-                MoveAndAttackLine(1, 1, 4, team);
-                MoveAndAttackLine(-1, -1, 4, team);
-                MoveAndAttackLine(1, -1, 4, team);
-                MoveAndAttackLine(-1, 1, 4, team);
-                MoveAndAttackLine(0, 1, 4, team);
-                MoveAndAttackLine(0, -1, 4, team);
-                MoveAndAttackLine(1, 0, 4, team);
-                MoveAndAttackLine(-1, 0, 4, team);
-
+                MoveAndAttackLine(1, 1, 4, team, true);
+                MoveAndAttackLine(-1, -1, 4, team, true);
+                MoveAndAttackLine(1, -1, 4, team, true);
+                MoveAndAttackLine(-1, 1, 4, team, true);
+                MoveAndAttackLine(0, 1, 4, team, true);
+                MoveAndAttackLine(0, -1, 4, team, true);
+                MoveAndAttackLine(1, 0, 4, team, true);
+                MoveAndAttackLine(-1, 0, 4, team, true);
                 break;
 
             case 6:
-                MoveAndAttackLine(1, 1, 1, team);
-                MoveAndAttackLine(-1, -1, 1, team);
-                MoveAndAttackLine(1, -1, 1, team);
-                MoveAndAttackLine(-1, 1, 1, team);
-                MoveAndAttackLine(0, 1, 1, team);
-                MoveAndAttackLine(0, -1, 1, team);
-                MoveAndAttackLine(1, 0, 1, team);
-                MoveAndAttackLine(-1, 0, 1, team);
-
+                MoveAndAttackLine(1, 1, 1, team, true);
+                MoveAndAttackLine(-1, -1, 1, team, true);
+                MoveAndAttackLine(1, -1, 1, team, true);
+                MoveAndAttackLine(-1, 1, 1, team, true);
+                MoveAndAttackLine(0, 1, 1, team, true);
+                MoveAndAttackLine(0, -1, 1, team, true);
+                MoveAndAttackLine(1, 0, 1, team, true);
+                MoveAndAttackLine(-1, 0, 1, team, true);
                 break;
         }
-
     }
 
-    private void MoveAndAttackLine(int xIncrement, int yIncrement, int max, char team)
+    private void MoveAndAttackLine(int xIncrement, int yIncrement, int max, char team, bool attack)
     {
         x = blockX + xIncrement;
         y = blockY + yIncrement;
         idValue = (9 * y) + x;
 
         int i = 0;
-        while (x < 9 && x >= 0 && y < 9 && y >= 0 && i < max)
+        //Is it for attack and move or just move
+        if (attack)
         {
-            if (blocks[idValue].GetComponent<BlockScript>().isFull)
+            //Get all blocks in the order that the first block can go
+            while (x < 9 && x >= 0 && y < 9 && y >= 0 && i < max)
             {
-                if (team != blocks[idValue].GetComponent<BlockScript>().team)
+                if (blocks[idValue].GetComponent<BlockScript>().isFull)
                 {
-                    Add(attackRoutes, x, y);
+                    if (team != blocks[idValue].GetComponent<BlockScript>().team)
+                    {
+                        Add(attackRoutes, x, y);
+                    }
+                    break;
                 }
-                break;
-            }
-            else
-            {
-                Add(moveRoutes, x, y);
-            }
+                else
+                {
+                    Add(moveRoutes, x, y);
+                }
 
-            x += xIncrement;
-            y += yIncrement;
+                //Get the next target block based on increment value
+                x += xIncrement;
+                y += yIncrement;
 
-            idValue = (9 * y) + x;
-            i++;
+                idValue = (9 * y) + x;
+                i++;
+            }
         }
-    }
-
-    private void MoveLine(int xIncrement, int yIncrement, int max)
-    {
-        x = blockX + xIncrement;
-        y = blockY + yIncrement;
-        idValue = (9 * y) + x;
-
-        int i = 0;
-        while (x < 9 && x >= 0 && y < 9 && y >= 0 && i < max)
+        else
         {
-            if (!blocks[idValue].GetComponent<BlockScript>().isFull)
+            while (x < 9 && x >= 0 && y < 9 && y >= 0 && i < max)
             {
-                Add(moveRoutes, x, y);
-            }
-            else
-            {
-                break;
-            }
+                if (!blocks[idValue].GetComponent<BlockScript>().isFull)
+                {
+                    Add(moveRoutes, x, y);
+                }
+                else
+                {
+                    break;
+                }
 
-            x += xIncrement;
-            y += yIncrement;
+                x += xIncrement;
+                y += yIncrement;
 
-            idValue = (9 * y) + x;
-            i++;
+                idValue = (9 * y) + x;
+                i++;
+            }
         }
-    }
 
+    }
 
     private void ControlAndAdd(List<int> list, int valueX, int valueY, char team)
     {
+        //Add the value with control
         if (valueX < 9 && valueX >= 0 && valueY < 9 && valueY >= 0)
         {
             int value = valueY * 9 + valueX;
@@ -193,12 +190,14 @@ public class CharacterScript : MonoBehaviour
 
     private void Add(List<int> list, int valueX, int valueY)
     {
+        //Add the value without control because already controlled
         int value = valueY * 9 + valueX;
         list.Add(value);
     }
 
     private void Equalize(List<int> firstList, List<int> secondList)
     {
+        //Sync both routes
         for (int i = 0; i < firstList.Count; i++)
         {
             secondList.Add(firstList[i]);
