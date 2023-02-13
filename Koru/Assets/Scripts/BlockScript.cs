@@ -11,31 +11,36 @@ public class BlockScript : MonoBehaviour
     public int characterNo;
     public bool isInfinity;
     public bool isFull;
-    //public bool playPermission = true;
+    public bool upgradePermission;
+    public bool playPermission;
     public Color blockColor;
     public Color teamColor;
 
     public GameObject[] blocksToGo;
 
     private CharacterManager cm;
+    private GameManager gm;
     private bool movePermission;
     private BlockScript secondBlock;
     private CharacterScript characterScript;
 
     private void Start()
     {
+        upgradePermission = true;
+        playPermission = false;
         //Blocks deafult color
         blockColor = GetComponent<Image>().color;
 
         characterScript = GameObject.FindGameObjectWithTag("CharacterManager").GetComponent<CharacterScript>();
 
         cm = GameObject.FindGameObjectWithTag("CharacterManager").GetComponent<CharacterManager>();
+        gm = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
     }
 
     //First, this function runs if you click any block
     public void OnMousePressed()
     {
-        cm.PressedBlock(gameObject, blockId, characterNo, team);
+        cm.PressedBlock(gameObject, blockId, characterNo, team, upgradePermission);
     }
 
     //Character manager calls this function
@@ -111,6 +116,8 @@ public class BlockScript : MonoBehaviour
 
                 characterNo = 0;
                 team = 'n';
+
+                gm.FastNextTurn();
 
                 movePermission = false;
             }

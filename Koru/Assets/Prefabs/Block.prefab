@@ -158,6 +158,8 @@ MonoBehaviour:
   characterNo: 0
   isInfinity: 0
   isFull: 0
+  canMove: 0
+  canPlay: 1
   blockColor: {r: 0, g: 0, b: 0, a: 0}
   teamColor: {r: 0, g: 0, b: 0, a: 0}
   blocksToGo: []

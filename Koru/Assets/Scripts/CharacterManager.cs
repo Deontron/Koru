@@ -9,10 +9,14 @@ public class CharacterManager : MonoBehaviour
     private MatrisScript ms;
     private CharacterScript cs;
     public GameObject[] blocks;
+
+    //The first block values
     private GameObject _block;
     private int _blockId;
     private int _characterNo;
     private char _team;
+    private bool _upgradePermission;
+
     private bool secondWhiteInfinity;
     private bool secondBlackInfinity;
 
@@ -24,7 +28,7 @@ public class CharacterManager : MonoBehaviour
     }
 
     //This function is call when clicked any block
-    public void PressedBlock(GameObject block, int blockId, int characterNo, char team)
+    public void PressedBlock(GameObject block, int blockId, int characterNo, char team, bool upgradePermission)
     {
         if (firstClick)
         {
@@ -33,9 +37,10 @@ public class CharacterManager : MonoBehaviour
             _team = team;
             _blockId = blockId;
             _characterNo = characterNo;
+            _upgradePermission = upgradePermission;
 
             //Do nothing if this block is empty
-            if (_block.GetComponent<BlockScript>().isFull)
+            if (_block.GetComponent<BlockScript>().isFull && _block.GetComponent<BlockScript>().playPermission)
             {
                 //Tell the first block to prepare
                 MoveCharacter(_block);
@@ -83,7 +88,7 @@ public class CharacterManager : MonoBehaviour
     private void UpgradeButton()
     {
         //Call the upgrade function if the block is full
-        if (_block != null && _characterNo >= 0)
+        if (_block != null && _characterNo >= 0 && _upgradePermission)
         {
             UpgradeCharacter(_block, _blockId, _characterNo);
 
