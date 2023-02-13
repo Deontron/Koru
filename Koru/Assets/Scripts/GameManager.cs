@@ -29,17 +29,17 @@ public class GameManager : MonoBehaviour
     {
         if (startTimer >= startTime)
         {
-            print("started");
             blocks = ms.blocks;
             StartTheGame();
-            gameStarted = true;
         }
     }
     private void StartTheGame()
     {
-        blocks[0].GetComponent<BlockScript>().ChangeToInfinity();
-        blocks[0].GetComponent<BlockScript>().team = 'w';
-        blocks[80].GetComponent<BlockScript>().ChangeToInfinity();
-        blocks[80].GetComponent<BlockScript>().team = 'b';
+        blocks[4].GetComponent<BlockScript>().ChangeToInfinity();
+        blocks[4].GetComponent<BlockScript>().team = 'w';
+        blocks[76].GetComponent<BlockScript>().ChangeToInfinity();
+        blocks[76].GetComponent<BlockScript>().team = 'b';
+
+        gameStarted = true;
     }
 }

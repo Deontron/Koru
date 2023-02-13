@@ -62,8 +62,25 @@ public class CharacterManager : MonoBehaviour
         }
     }
 
-    //The upgrade button calls this function
-    public void UpgradeButton()
+    //The top upgrade button calls this function
+    public void BlackUpgradeButton()
+    {
+        if (_team == 'b' || (_blockId >= 63 && _team != 'w'))
+        {
+            UpgradeButton();
+        }
+    }
+
+    //The bottom upgrade button calls this function
+    public void WhiteUpgradeButton()
+    {
+        if (_team == 'w' || (_blockId <= 17 && _team != 'b'))
+        {
+            UpgradeButton();
+        }
+    }
+
+    private void UpgradeButton()
     {
         //Call the upgrade function if the block is full
         if (_block != null && _characterNo >= 0)
