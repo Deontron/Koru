@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
     private float mainTimer;
     private TimeSpan time;
 
-    private int queueCounter;
+    public int queueCounter;
     private float queueTimer;
     private float queueTime;
     private bool playerOnesTurn;
