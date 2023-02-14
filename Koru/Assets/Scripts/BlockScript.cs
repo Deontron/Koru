@@ -117,6 +117,7 @@ public class BlockScript : MonoBehaviour
                 characterNo = 0;
                 team = 'n';
 
+                //next player
                 gm.FastNextTurn();
 
                 movePermission = false;

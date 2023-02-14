@@ -1,28 +1,37 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    public TextMeshProUGUI textBottom;
     public TextMeshProUGUI textTop;
+    public TextMeshProUGUI textBottom;
 
     private MatrisScript ms;
     private GameObject[] blocks;
+
     private float startTimer;
     private float startTime = 1;
     private bool gameStarted;
+
+    private float mainTimer;
+    private TimeSpan time;
+
+    public int queueCounter;
     private float queueTimer;
     private float queueTime;
     private bool playerOnesTurn;
+    private bool countDown;
 
     void Start()
     {
         ms = GameObject.FindGameObjectWithTag("Matris").GetComponent<MatrisScript>();
 
-        queueTime = 5;
+        queueTime = 10;
         playerOnesTurn = true;
     }
 
@@ -32,12 +41,61 @@ public class GameManager : MonoBehaviour
         {
             FirstTimer();
         }
+        else
+        {
+            MainTimer();
+        }
+
+        if (countDown)
+        {
+            QueueTimer();
+        }
     }
 
-    IEnumerator Timer()
+    private void FirstTimer()
     {
-        yield return new WaitForSeconds(queueTime);
+        startTimer += Time.deltaTime;
+        if (startTimer >= startTime)
+        {
+            blocks = ms.blocks;
+            StartTheGame();
+        }
+    }
+    private void StartTheGame()
+    {
+        blocks[4].GetComponent<BlockScript>().ChangeToInfinity();
+        blocks[4].GetComponent<BlockScript>().team = 'w';
+        blocks[76].GetComponent<BlockScript>().ChangeToInfinity();
+        blocks[76].GetComponent<BlockScript>().team = 'b';
 
+        QueueManager();
+
+        gameStarted = true;
+    }
+
+    private void MainTimer()
+    {
+        mainTimer += Time.deltaTime;
+
+        time = TimeSpan.FromSeconds(mainTimer);
+
+        textTop.text = time.Minutes.ToString() + " : " + time.Seconds.ToString();
+        textBottom.text = time.Minutes.ToString() + " : " + time.Seconds.ToString();
+    }
+
+    private void QueueTimer()
+    {
+        queueTimer += Time.deltaTime;
+        if (queueTimer >= queueTime)
+        {
+            countDown = false;
+            queueTimer = 0;
+            QueueManager();
+        }
+    }
+
+    private void QueueManager()
+    {
         if (playerOnesTurn)
         {
             NextTurn('w');
@@ -49,8 +107,9 @@ public class GameManager : MonoBehaviour
             print("second");
         }
 
+        queueCounter++;
         playerOnesTurn = !playerOnesTurn;
-        StartCoroutine(Timer());
+        countDown = true;
     }
 
     private void NextTurn(char team)
@@ -71,28 +130,7 @@ public class GameManager : MonoBehaviour
 
     public void FastNextTurn()
     {
-
-    }
-
-    private void FirstTimer()
-    {
-        startTimer += Time.deltaTime;
-        if (startTimer >= startTime)
-        {
-            blocks = ms.blocks;
-            StartTheGame();
-        }
-    }
-    private void StartTheGame()
-    {
-        blocks[4].GetComponent<BlockScript>().ChangeToInfinity();
-        blocks[4].GetComponent<BlockScript>().team = 'w';
-        blocks[76].GetComponent<BlockScript>().ChangeToInfinity();
-        blocks[76].GetComponent<BlockScript>().team = 'b';
-
-        StartCoroutine(Timer());
-        NextTurn('w');
-
-        gameStarted = true;
+        queueTimer = 0;
+        QueueManager();
     }
 }

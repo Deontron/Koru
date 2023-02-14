@@ -7,6 +7,7 @@ public class CharacterManager : MonoBehaviour
 {
     private bool firstClick = true;
     private MatrisScript ms;
+    private GameManager gm;
     private CharacterScript cs;
     public GameObject[] blocks;
 
@@ -23,6 +24,7 @@ public class CharacterManager : MonoBehaviour
     private void Start()
     {
         ms = GameObject.FindGameObjectWithTag("Matris").GetComponent<MatrisScript>();
+        gm = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         cs = GetComponent<CharacterScript>();
         blocks = ms.blocks;
     }
@@ -53,6 +55,9 @@ public class CharacterManager : MonoBehaviour
             {
                 //Change the first block to infinity or hit the enemy infinity if the second block is infinity
                 HitTheInfinity(_block, block);
+                
+                //next player
+                gm.FastNextTurn();
             }
             else
             {
@@ -164,7 +169,7 @@ public class CharacterManager : MonoBehaviour
         {
             if (_team == 'w')
             {
-                if (!secondWhiteInfinity)
+                if (!secondWhiteInfinity && !firstBlock.GetComponent<BlockScript>().isInfinity)
                 {
                     firstBlock.GetComponent<BlockScript>().ChangeToInfinity();
                     secondWhiteInfinity = true;
@@ -183,7 +188,7 @@ public class CharacterManager : MonoBehaviour
             }
             else if (_team == 'b')
             {
-                if (!secondBlackInfinity)
+                if (!secondBlackInfinity && !firstBlock.GetComponent<BlockScript>().isInfinity)
                 {
                     firstBlock.GetComponent<BlockScript>().ChangeToInfinity();
                     secondBlackInfinity = true;
