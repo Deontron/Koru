@@ -17,6 +17,10 @@ public class GameManager : MonoBehaviour
     private float startTimer;
     private float startTime = 1;
     private bool gameStarted;
+
+    private float mainTimer;
+    private TimeSpan time;
+
     private float queueTimer;
     private float queueTime;
     private bool playerOnesTurn;
@@ -36,6 +40,25 @@ public class GameManager : MonoBehaviour
         {
             FirstTimer();
         }
+        else
+        {
+            MainTimer();
+        }
+
+        if (countDown)
+        {
+            QueueTimer();
+        }
+    }
+
+    private void MainTimer()
+    {
+        mainTimer += Time.deltaTime;
+
+        time = TimeSpan.FromSeconds(mainTimer);
+
+        textTop.text = time.Minutes.ToString() + " : " + time.Seconds.ToString();
+        textBottom.text = time.Minutes.ToString() + " : " + time.Seconds.ToString();
     }
 
     private void QueueTimer()
@@ -62,7 +85,6 @@ public class GameManager : MonoBehaviour
             print("second");
         }
 
-        queueCounter++;
         playerOnesTurn = !playerOnesTurn;
         countDown = true;
     }
@@ -85,7 +107,8 @@ public class GameManager : MonoBehaviour
 
     public void FastNextTurn()
     {
-
+        queueTimer = 0;
+        QueueManager();
     }
 
     private void FirstTimer()
@@ -104,8 +127,7 @@ public class GameManager : MonoBehaviour
         blocks[76].GetComponent<BlockScript>().ChangeToInfinity();
         blocks[76].GetComponent<BlockScript>().team = 'b';
 
-        StartCoroutine(Timer());
-        NextTurn('w');
+        QueueManager();
 
         gameStarted = true;
     }
