@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
     private float mainTimer;
     private TimeSpan time;
 
+    private int queueCounter;
     private float queueTimer;
     private float queueTime;
     private bool playerOnesTurn;
@@ -106,6 +107,7 @@ public class GameManager : MonoBehaviour
             print("second");
         }
 
+        queueCounter++;
         playerOnesTurn = !playerOnesTurn;
         countDown = true;
     }

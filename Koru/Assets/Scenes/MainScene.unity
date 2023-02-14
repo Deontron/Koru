@@ -286,8 +286,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc63c742745ee4a4e8bb5ea551901937, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textBottom: {fileID: 0}
   textTop: {fileID: 1661468295}
+  textBottom: {fileID: 984705827}
 --- !u!4 &283332058
 Transform:
   m_ObjectHideFlags: 0
