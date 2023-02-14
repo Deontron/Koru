@@ -11,12 +11,16 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI textTop;
     public TextMeshProUGUI textBottom;
 
+    public Button blackButton;
+    public Button whiteButton;
+
     private MatrisScript ms;
     private GameObject[] blocks;
 
     private float startTimer;
     private float startTime = 1;
-    private bool gameStarted;
+    private bool firstStage;
+    public bool gameStarted;
 
     private float mainTimer;
     private TimeSpan time;
@@ -37,13 +41,19 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (!gameStarted)
+        if (!firstStage)
         {
             FirstTimer();
         }
         else
         {
             MainTimer();
+
+            if (!gameStarted && time.Minutes >= 1)
+            {
+                QueueManager();
+                gameStarted = true;
+            }
         }
 
         if (countDown)
@@ -68,9 +78,7 @@ public class GameManager : MonoBehaviour
         blocks[76].GetComponent<BlockScript>().ChangeToInfinity();
         blocks[76].GetComponent<BlockScript>().team = 'b';
 
-        QueueManager();
-
-        gameStarted = true;
+        firstStage = true;
     }
 
     private void MainTimer()
@@ -125,6 +133,17 @@ public class GameManager : MonoBehaviour
             {
                 blocks[i].GetComponent<BlockScript>().playPermission = false;
             }
+        }
+
+        if (team == 'w')
+        {
+            whiteButton.interactable = true;
+            blackButton.interactable = false;
+        }
+        else
+        {
+            whiteButton.interactable = false;
+            blackButton.interactable = true;
         }
     }
 

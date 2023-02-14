@@ -11,7 +11,6 @@ public class BlockScript : MonoBehaviour
     public int characterNo;
     public bool isInfinity;
     public bool isFull;
-    public bool upgradePermission;
     public bool playPermission;
     public Color blockColor;
     public Color teamColor;
@@ -26,7 +25,6 @@ public class BlockScript : MonoBehaviour
 
     private void Start()
     {
-        upgradePermission = true;
         playPermission = false;
         //Blocks deafult color
         blockColor = GetComponent<Image>().color;
@@ -40,7 +38,7 @@ public class BlockScript : MonoBehaviour
     //First, this function runs if you click any block
     public void OnMousePressed()
     {
-        cm.PressedBlock(gameObject, blockId, characterNo, team, upgradePermission);
+        cm.PressedBlock(gameObject, blockId, characterNo, team);
     }
 
     //Character manager calls this function

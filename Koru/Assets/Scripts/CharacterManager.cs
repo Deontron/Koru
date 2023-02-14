@@ -16,7 +16,6 @@ public class CharacterManager : MonoBehaviour
     private int _blockId;
     private int _characterNo;
     private char _team;
-    private bool _upgradePermission;
 
     private bool secondWhiteInfinity;
     private bool secondBlackInfinity;
@@ -30,7 +29,7 @@ public class CharacterManager : MonoBehaviour
     }
 
     //This function is call when clicked any block
-    public void PressedBlock(GameObject block, int blockId, int characterNo, char team, bool upgradePermission)
+    public void PressedBlock(GameObject block, int blockId, int characterNo, char team)
     {
         if (firstClick)
         {
@@ -39,7 +38,6 @@ public class CharacterManager : MonoBehaviour
             _team = team;
             _blockId = blockId;
             _characterNo = characterNo;
-            _upgradePermission = upgradePermission;
 
             //Do nothing if this block is empty
             if (_block.GetComponent<BlockScript>().isFull && _block.GetComponent<BlockScript>().playPermission)
@@ -55,7 +53,7 @@ public class CharacterManager : MonoBehaviour
             {
                 //Change the first block to infinity or hit the enemy infinity if the second block is infinity
                 HitTheInfinity(_block, block);
-                
+
                 //next player
                 gm.FastNextTurn();
             }
@@ -93,16 +91,24 @@ public class CharacterManager : MonoBehaviour
     private void UpgradeButton()
     {
         //Call the upgrade function if the block is full
-        if (_block != null && _characterNo >= 0 && _upgradePermission)
+        if (_block != null && _characterNo >= 0)
         {
             UpgradeCharacter(_block, _blockId, _characterNo);
 
             //Reset the routes
             _block.GetComponent<BlockScript>().BackToNormal();
         }
+
         firstClick = true;
+
         //Clear the value not to cause any error
         _block = null;
+
+        if (gm.gameStarted)
+        {
+            //next player
+            gm.FastNextTurn();
+        }
     }
 
     private void MoveCharacter(GameObject block)
