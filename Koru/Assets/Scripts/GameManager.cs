@@ -51,6 +51,27 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void FirstTimer()
+    {
+        startTimer += Time.deltaTime;
+        if (startTimer >= startTime)
+        {
+            blocks = ms.blocks;
+            StartTheGame();
+        }
+    }
+    private void StartTheGame()
+    {
+        blocks[4].GetComponent<BlockScript>().ChangeToInfinity();
+        blocks[4].GetComponent<BlockScript>().team = 'w';
+        blocks[76].GetComponent<BlockScript>().ChangeToInfinity();
+        blocks[76].GetComponent<BlockScript>().team = 'b';
+
+        QueueManager();
+
+        gameStarted = true;
+    }
+
     private void MainTimer()
     {
         mainTimer += Time.deltaTime;
@@ -109,26 +130,5 @@ public class GameManager : MonoBehaviour
     {
         queueTimer = 0;
         QueueManager();
-    }
-
-    private void FirstTimer()
-    {
-        startTimer += Time.deltaTime;
-        if (startTimer >= startTime)
-        {
-            blocks = ms.blocks;
-            StartTheGame();
-        }
-    }
-    private void StartTheGame()
-    {
-        blocks[4].GetComponent<BlockScript>().ChangeToInfinity();
-        blocks[4].GetComponent<BlockScript>().team = 'w';
-        blocks[76].GetComponent<BlockScript>().ChangeToInfinity();
-        blocks[76].GetComponent<BlockScript>().team = 'b';
-
-        QueueManager();
-
-        gameStarted = true;
     }
 }
