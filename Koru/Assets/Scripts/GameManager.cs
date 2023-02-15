@@ -14,6 +14,11 @@ public class GameManager : MonoBehaviour
     public Button blackButton;
     public Button whiteButton;
 
+    public TextMeshProUGUI whitePlusText;
+    public TextMeshProUGUI blackPlusText;
+    public int whitePlusAmount;
+    public int blackPlusAmount;
+
     private MatrisScript ms;
     private GameObject[] blocks;
 
@@ -35,7 +40,7 @@ public class GameManager : MonoBehaviour
     {
         ms = GameObject.FindGameObjectWithTag("Matris").GetComponent<MatrisScript>();
 
-        queueTime = 10;
+        queueTime = 20;
         playerOnesTurn = true;
     }
 
@@ -77,6 +82,11 @@ public class GameManager : MonoBehaviour
         blocks[4].GetComponent<BlockScript>().team = 'w';
         blocks[76].GetComponent<BlockScript>().ChangeToInfinity();
         blocks[76].GetComponent<BlockScript>().team = 'b';
+
+        whitePlusAmount = 20;
+        blackPlusAmount = 20;
+
+        UpdateThePlusTexts();
 
         firstStage = true;
     }
@@ -145,11 +155,30 @@ public class GameManager : MonoBehaviour
             whiteButton.interactable = false;
             blackButton.interactable = true;
         }
+
+        if (queueCounter % 8 == 0 && queueCounter > 0)
+        {
+            whitePlusAmount++;
+            blackPlusAmount++;
+            UpdateThePlusTexts();
+        }
     }
 
     public void FastNextTurn()
     {
         queueTimer = 0;
         QueueManager();
+    }
+
+    public void UpdateThePlusTexts()
+    {
+        whitePlusText.text = whitePlusAmount.ToString();
+        blackPlusText.text = blackPlusAmount.ToString();
+
+        if (whitePlusAmount <= 0 && blackPlusAmount <= 0 && !gameStarted)
+        {
+            QueueManager();
+            gameStarted = true;
+        }
     }
 }

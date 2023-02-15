@@ -75,7 +75,12 @@ public class CharacterManager : MonoBehaviour
     {
         if (_team == 'b' || (_blockId >= 63 && _team != 'w'))
         {
-            UpgradeButton();
+            //Call the upgrade function if the block is full
+            if (gm.blackPlusAmount > 0 && _block != null && _characterNo >= 0 && _characterNo <= 5 && !_block.GetComponent<BlockScript>().isInfinity)
+            {
+                gm.blackPlusAmount--;
+                UpgradeButton();
+            }
         }
     }
 
@@ -84,20 +89,21 @@ public class CharacterManager : MonoBehaviour
     {
         if (_team == 'w' || (_blockId <= 17 && _team != 'b'))
         {
-            UpgradeButton();
+            //Call the upgrade function if the block is full
+            if (gm.whitePlusAmount > 0 && _block != null && _characterNo >= 0 && _characterNo <= 5 && !_block.GetComponent<BlockScript>().isInfinity)
+            {
+                gm.whitePlusAmount--;
+                UpgradeButton();
+            }
         }
     }
 
     private void UpgradeButton()
     {
-        //Call the upgrade function if the block is full
-        if (_block != null && _characterNo >= 0)
-        {
-            UpgradeCharacter(_block, _blockId, _characterNo);
+        UpgradeCharacter(_block, _blockId, _characterNo);
 
-            //Reset the routes
-            _block.GetComponent<BlockScript>().BackToNormal();
-        }
+        //Reset the routes
+        _block.GetComponent<BlockScript>().BackToNormal();
 
         firstClick = true;
 
@@ -109,6 +115,8 @@ public class CharacterManager : MonoBehaviour
             //next player
             gm.FastNextTurn();
         }
+
+        gm.UpdateThePlusTexts();
     }
 
     private void MoveCharacter(GameObject block)
