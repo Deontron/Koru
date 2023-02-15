@@ -76,7 +76,7 @@ public class CharacterManager : MonoBehaviour
         if (_team == 'b' || (_blockId >= 63 && _team != 'w'))
         {
             //Call the upgrade function if the block is full
-            if (gm.blackPlusAmount > 0 && _block != null && _characterNo >= 0 && _characterNo <= 5 && !_block.GetComponent<BlockScript>().isInfinity)
+            if (gm.blackPlusAmount > 0 && _block != null && _characterNo >= 0 && _characterNo < 5 && !_block.GetComponent<BlockScript>().isInfinity)
             {
                 gm.blackPlusAmount--;
                 UpgradeButton();
@@ -90,7 +90,7 @@ public class CharacterManager : MonoBehaviour
         if (_team == 'w' || (_blockId <= 17 && _team != 'b'))
         {
             //Call the upgrade function if the block is full
-            if (gm.whitePlusAmount > 0 && _block != null && _characterNo >= 0 && _characterNo <= 5 && !_block.GetComponent<BlockScript>().isInfinity)
+            if (gm.whitePlusAmount > 0 && _block != null && _characterNo >= 0 && _characterNo < 5 && !_block.GetComponent<BlockScript>().isInfinity)
             {
                 gm.whitePlusAmount--;
                 UpgradeButton();
