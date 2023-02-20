@@ -106,12 +106,6 @@ public class BlockScript : MonoBehaviour
                 //Tells the second block to change to the first block
                 secondBlock.Change(characterNo, team, teamColor);
 
-                if (isInfinity)
-                {
-                    secondBlock.isInfinity = true;
-                    isInfinity = false;
-                }
-
                 characterNo = 0;
                 team = 'n';
 
@@ -122,6 +116,13 @@ public class BlockScript : MonoBehaviour
             }
 
             BackToNormal();
+
+            if (isInfinity)
+            {
+                secondBlock.isInfinity = true;
+                isInfinity = false;
+                characterScript.CalculateTheRoutes(6, team, secondBlock.blockId);
+            }
         }
     }
 

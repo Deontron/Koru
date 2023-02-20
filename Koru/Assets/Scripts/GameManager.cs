@@ -67,6 +67,18 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void GameOver(char team)
+    {
+        if(team == 'w')
+        {
+            print("Player White Won!");
+        }
+        else
+        {
+            print("Player Black Won!");
+        }
+    }
+
     private void FirstTimer()
     {
         startTimer += Time.deltaTime;
@@ -83,8 +95,8 @@ public class GameManager : MonoBehaviour
         blocks[76].GetComponent<BlockScript>().ChangeToInfinity();
         blocks[76].GetComponent<BlockScript>().team = 'b';
 
-        whitePlusAmount = 20;
-        blackPlusAmount = 20;
+        whitePlusAmount = 2;
+        blackPlusAmount = 2;
 
         UpdateThePlusTexts();
 
@@ -117,12 +129,10 @@ public class GameManager : MonoBehaviour
         if (playerOnesTurn)
         {
             NextTurn('w');
-            print("first");
         }
         else
         {
             NextTurn('b');
-            print("second");
         }
 
         queueCounter++;
