@@ -112,17 +112,17 @@ public class BlockScript : MonoBehaviour
                 //next player
                 gm.FastNextTurn();
 
+                if (isInfinity)
+                {
+                    secondBlock.isInfinity = true;
+                    isInfinity = false;
+                    characterScript.Match(secondBlock.team, secondBlock.blockId);
+                }
+
                 movePermission = false;
             }
 
             BackToNormal();
-
-            if (isInfinity)
-            {
-                secondBlock.isInfinity = true;
-                isInfinity = false;
-                characterScript.CalculateTheRoutes(6, team, secondBlock.blockId);
-            }
         }
     }
 

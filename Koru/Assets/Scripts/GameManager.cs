@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     public int whitePlusAmount;
     public int blackPlusAmount;
 
+    private UIManager uim;
     private MatrisScript ms;
     private GameObject[] blocks;
 
@@ -39,6 +40,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         ms = GameObject.FindGameObjectWithTag("Matris").GetComponent<MatrisScript>();
+        uim = GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIManager>();
 
         queueTime = 20;
         playerOnesTurn = true;
@@ -69,14 +71,7 @@ public class GameManager : MonoBehaviour
 
     public void GameOver(char team)
     {
-        if(team == 'w')
-        {
-            print("Player White Won!");
-        }
-        else
-        {
-            print("Player Black Won!");
-        }
+        uim.OpenGameOverPanel(team);
     }
 
     private void FirstTimer()

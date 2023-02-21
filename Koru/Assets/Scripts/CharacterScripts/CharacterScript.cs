@@ -120,8 +120,6 @@ public class CharacterScript : MonoBehaviour
                 MoveAndAttackLine(0, -1, 1, true);
                 MoveAndAttackLine(1, 0, 1, true);
                 MoveAndAttackLine(-1, 0, 1, true);
-
-                print("sea");
                 break;
         }
     }
@@ -144,10 +142,6 @@ public class CharacterScript : MonoBehaviour
                     if (_team != blocks[idValue].GetComponent<BlockScript>().team)
                     {
                         Add(attackRoutes, x, y);
-                    }
-                    else if (blocks[idValue].GetComponent<BlockScript>().isInfinity)
-                    {
-                        MatchFinder();
                     }
                     break;
                 }
@@ -216,8 +210,35 @@ public class CharacterScript : MonoBehaviour
         }
     }
 
-    private void MatchFinder()
+    public void Match(char team, int blockId)
     {
-        gm.GameOver(_team);
+        _team = team;
+        //Separate the block id to x and y index
+        blockX = blockId % 9;
+        blockY = blockId / 9;
+
+        ControlTheMatch(1, 1);
+        ControlTheMatch(-1, -1);
+        ControlTheMatch(1, -1);
+        ControlTheMatch(-1, 1);
+        ControlTheMatch(0, 1);
+        ControlTheMatch(0, -1);
+        ControlTheMatch(1, 0);
+        ControlTheMatch(-1, 0);
+    }
+
+    private void ControlTheMatch(int xIncrement, int yIncrement)
+    {
+        x = blockX + xIncrement;
+        y = blockY + yIncrement;
+        idValue = (9 * y) + x;
+
+        if (x < 9 && x >= 0 && y < 9 && y >= 0)
+        {
+            if (blocks[idValue].GetComponent<BlockScript>().isFull && _team == blocks[idValue].GetComponent<BlockScript>().team)
+            {
+                gm.GameOver(_team);
+            }
+        }
     }
 }
