@@ -217,6 +217,7 @@ public class CharacterScript : MonoBehaviour
         blockX = blockId % 9;
         blockY = blockId / 9;
 
+        //Look around if there is another infinity
         ControlTheMatch(1, 1);
         ControlTheMatch(-1, -1);
         ControlTheMatch(1, -1);

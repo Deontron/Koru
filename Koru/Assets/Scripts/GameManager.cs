@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour
     private bool firstStage;
     public bool gameStarted;
 
+    private bool isGameGoing;
     private float mainTimer;
     private TimeSpan time;
 
@@ -43,21 +44,23 @@ public class GameManager : MonoBehaviour
     {
         ms = GameObject.FindGameObjectWithTag("Matris").GetComponent<MatrisScript>();
         uim = GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIManager>();
-
-        queueTime = 20;
-        playerOnesTurn = true;
     }
 
     void Update()
     {
         if (!firstStage)
         {
+            //timer for first stage
             FirstTimer();
         }
         else
         {
-            MainTimer();
+            if (isGameGoing)
+            {
+                MainTimer();
+            }
 
+            //Finish the first stage
             if (!gameStarted && time.Minutes >= 1)
             {
                 QueueManager();
@@ -65,6 +68,7 @@ public class GameManager : MonoBehaviour
             }
         }
 
+        //Timer for players turn
         if (countDown)
         {
             QueueTimer();
@@ -74,6 +78,7 @@ public class GameManager : MonoBehaviour
     public void GameOver(char team)
     {
         uim.OpenGameOverPanel(team);
+        isGameGoing = false;
     }
 
     private void FirstTimer()
@@ -87,16 +92,22 @@ public class GameManager : MonoBehaviour
     }
     private void StartTheGame()
     {
+        //Deploy the first infinities
         blocks[4].GetComponent<BlockScript>().ChangeToInfinity();
         blocks[4].GetComponent<BlockScript>().team = 'w';
         blocks[76].GetComponent<BlockScript>().ChangeToInfinity();
         blocks[76].GetComponent<BlockScript>().team = 'b';
+
+        //Set the game values
+        queueTime = 20;
+        playerOnesTurn = true;
 
         whitePlusAmount = 2;
         blackPlusAmount = 2;
 
         UpdateThePlusTexts();
 
+        isGameGoing = true;
         firstStage = true;
     }
 
@@ -118,6 +129,7 @@ public class GameManager : MonoBehaviour
             countDown = false;
             queueTimer = 0;
 
+            //Reset the routes if time is over
             if (activeBlock != null)
             {
                 activeBlock.BackToNormal();
@@ -146,6 +158,7 @@ public class GameManager : MonoBehaviour
 
     private void NextTurn(char team)
     {
+        //Let the player to play
         for (int i = 0; i < blocks.Length; i++)
         {
             if (blocks[i].GetComponent<BlockScript>().isFull && blocks[i].GetComponent<BlockScript>().team == team)
@@ -170,6 +183,7 @@ public class GameManager : MonoBehaviour
             blackButton.interactable = true;
         }
 
+        //Add a point in 8 turns
         if (queueCounter % 8 == 0 && queueCounter > 0)
         {
             whitePlusAmount++;

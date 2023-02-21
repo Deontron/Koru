@@ -12,7 +12,7 @@ public class MatrisScript : MonoBehaviour
 
     private GameObject spawnedBlock;
     private int width = 9;
-    void Start()
+    void Awake()
     {
         SetTheMatris();
     }
