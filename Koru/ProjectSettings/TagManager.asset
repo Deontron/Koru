@@ -8,6 +8,7 @@ TagManager:
   - GameManager
   - Block
   - Matris
+  - UIManager
   layers:
   - Default
   - TransparentFX
