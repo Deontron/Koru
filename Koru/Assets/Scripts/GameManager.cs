@@ -23,6 +23,8 @@ public class GameManager : MonoBehaviour
     private MatrisScript ms;
     private GameObject[] blocks;
 
+    private BlockScript activeBlock;
+
     private float startTimer;
     private float startTime = 1;
     private bool firstStage;
@@ -115,6 +117,13 @@ public class GameManager : MonoBehaviour
         {
             countDown = false;
             queueTimer = 0;
+
+            if (activeBlock != null)
+            {
+                activeBlock.BackToNormal();
+                activeBlock = null;
+            }
+
             QueueManager();
         }
     }
@@ -185,5 +194,10 @@ public class GameManager : MonoBehaviour
             QueueManager();
             gameStarted = true;
         }
+    }
+
+    public void GetActiveBlock(BlockScript block)
+    {
+        activeBlock = block;
     }
 }

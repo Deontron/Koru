@@ -39,6 +39,7 @@ public class BlockScript : MonoBehaviour
     public void OnMousePressed()
     {
         cm.PressedBlock(gameObject, blockId, characterNo, team);
+        gm.GetActiveBlock(this);
     }
 
     //Character manager calls this function
