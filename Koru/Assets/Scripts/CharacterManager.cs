@@ -53,9 +53,6 @@ public class CharacterManager : MonoBehaviour
             {
                 //Change the first block to infinity or hit the enemy infinity if the second block is infinity
                 HitTheInfinity(_block, block);
-
-                //next player
-                gm.FastNextTurn();
             }
             else
             {
@@ -218,6 +215,9 @@ public class CharacterManager : MonoBehaviour
                     }
                 }
             }
+
+            //next player
+            gm.FastNextTurn();
         }
     }
 }
