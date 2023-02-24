@@ -1,12 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TurnMechanic : MonoBehaviour
 {
     private GameObject[] blocks;
     private MatrisScript ms;
     private GameManager gm;
+
+    public Button blackButton;
+    public Button whiteButton;
 
     public int queueCounter;
     public bool countDown;
@@ -53,16 +57,16 @@ public class TurnMechanic : MonoBehaviour
 
         if (team == 'w')
         {
-            gm.whiteButton.interactable = true;
-            gm.blackButton.interactable = false;
+            whiteButton.interactable = true;
+            blackButton.interactable = false;
         }
         else
         {
-            gm.whiteButton.interactable = false;
-            gm.blackButton.interactable = true;
+            whiteButton.interactable = false;
+            blackButton.interactable = true;
         }
 
-        //Add a point in 8 turns
+        //Add a point in ... turns
         if (queueCounter % 8 == 0 && queueCounter > 0)
         {
             gm.whitePlusAmount++;

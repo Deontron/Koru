@@ -11,9 +11,6 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI textTop;
     public TextMeshProUGUI textBottom;
 
-    public Button blackButton;
-    public Button whiteButton;
-
     public TextMeshProUGUI whitePlusText;
     public TextMeshProUGUI blackPlusText;
     public int whitePlusAmount;
@@ -101,8 +98,8 @@ public class GameManager : MonoBehaviour
         queueTime = 20;
         tm.playerOnesTurn = true;
 
-        whitePlusAmount = 25;
-        blackPlusAmount = 25;
+        whitePlusAmount = 3;
+        blackPlusAmount = 0;
 
         UpdateThePlusTexts();
 
@@ -174,7 +171,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-
     public void FastNextTurn()
     {
         queueTimer = 0;
@@ -199,61 +195,3 @@ public class GameManager : MonoBehaviour
         activeBlock = block;
     }
 }
-
-//private void QueueManager()
-//{
-//    if (playerOnesTurn)
-//    {
-//        NextTurn('w');
-//    }
-//    else
-//    {
-//        NextTurn('b');
-//    }
-
-//    queueCounter++;
-//    playerOnesTurn = !playerOnesTurn;
-//    countDown = true;
-//}
-
-//private void NextTurn(char team)
-//{
-//    //Let the player to play
-//    for (int i = 0; i < blocks.Length; i++)
-//    {
-//        if (blocks[i].GetComponent<BlockScript>().isFull && blocks[i].GetComponent<BlockScript>().team == team)
-//        {
-//            blocks[i].GetComponent<BlockScript>().playPermission = true;
-//        }
-
-//        if (blocks[i].GetComponent<BlockScript>().isFull && blocks[i].GetComponent<BlockScript>().team != team)
-//        {
-//            blocks[i].GetComponent<BlockScript>().playPermission = false;
-//        }
-//    }
-
-//    if (team == 'w')
-//    {
-//        whiteButton.interactable = true;
-//        blackButton.interactable = false;
-//    }
-//    else
-//    {
-//        whiteButton.interactable = false;
-//        blackButton.interactable = true;
-//    }
-
-//    //Add a point in 8 turns
-//    if (queueCounter % 8 == 0 && queueCounter > 0)
-//    {
-//        whitePlusAmount++;
-//        blackPlusAmount++;
-//        UpdateThePlusTexts();
-//    }
-//}
-
-//public void FastNextTurn()
-//{
-//    queueTimer = 0;
-//    QueueManager();
-//}

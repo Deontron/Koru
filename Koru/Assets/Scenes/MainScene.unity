@@ -423,14 +423,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textTop: {fileID: 1678131850}
   textBottom: {fileID: 984705827}
-  blackButton: {fileID: 1327605669}
-  whiteButton: {fileID: 280469809}
   whitePlusText: {fileID: 850730622}
   blackPlusText: {fileID: 2100720344}
   whitePlusAmount: 0
   blackPlusAmount: 0
   gameStarted: 0
-  queueCounter: 0
+  queueTimer: 0
 --- !u!4 &283332058
 Transform:
   m_ObjectHideFlags: 0
@@ -2240,6 +2238,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6804435daef8af740acd40ab01cf3034, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  blackButton: {fileID: 1327605669}
+  whiteButton: {fileID: 280469809}
+  queueCounter: 0
+  countDown: 0
+  playerOnesTurn: 0
 --- !u!4 &1803486642
 Transform:
   m_ObjectHideFlags: 0
