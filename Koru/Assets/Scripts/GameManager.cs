@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     public int whitePlusAmount;
     public int blackPlusAmount;
 
+    private CharacterManager cm;
     private UIManager uim;
     private MatrisScript ms;
     private GameObject[] blocks;
@@ -29,6 +30,7 @@ public class GameManager : MonoBehaviour
     private float startTime = 1;
     private bool firstStage;
     public bool gameStarted;
+    private int[] firstBlocksID = { 11, 13, 15, 65, 67, 69 };
 
     private bool isGameGoing;
     private float mainTimer;
@@ -44,6 +46,7 @@ public class GameManager : MonoBehaviour
     {
         ms = GameObject.FindGameObjectWithTag("Matris").GetComponent<MatrisScript>();
         uim = GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIManager>();
+        cm = GameObject.FindGameObjectWithTag("CharacterManager").GetComponent<CharacterManager>();
     }
 
     void Update()
@@ -64,6 +67,7 @@ public class GameManager : MonoBehaviour
             if (!gameStarted && time.Minutes >= 1)
             {
                 QueueManager();
+                UnlockFirstCharacters();
                 gameStarted = true;
             }
         }
@@ -92,14 +96,10 @@ public class GameManager : MonoBehaviour
     }
     private void StartTheGame()
     {
-        //Deploy the first infinities
-        blocks[4].GetComponent<BlockScript>().ChangeToInfinity();
-        blocks[4].GetComponent<BlockScript>().team = 'w';
-        blocks[76].GetComponent<BlockScript>().ChangeToInfinity();
-        blocks[76].GetComponent<BlockScript>().team = 'b';
+        DeployFirstCharacters();
 
         //Set the game values
-        queueTime = 20;
+        queueTime = 200;
         playerOnesTurn = true;
 
         whitePlusAmount = 2;
@@ -109,6 +109,41 @@ public class GameManager : MonoBehaviour
 
         isGameGoing = true;
         firstStage = true;
+    }
+
+    private void DeployFirstCharacters()
+    {
+        //Deploy the first infinities
+        blocks[4].GetComponent<BlockScript>().ChangeToInfinity();
+        blocks[4].GetComponent<BlockScript>().team = 'w';
+        blocks[76].GetComponent<BlockScript>().ChangeToInfinity();
+        blocks[76].GetComponent<BlockScript>().team = 'b';
+
+        //Deploy the first 1 characters
+        foreach (int index in firstBlocksID)
+        {
+            cm.DeployCharecter(blocks[index], index);
+        }
+
+        LockFirstCharacters();
+    }
+
+    private void LockFirstCharacters()
+    {
+        //Lock the first characters that are not allowed to be upgraded
+        foreach (int index in firstBlocksID)
+        {
+            blocks[index].GetComponent<Button>().interactable = false;
+        }
+    }
+
+    private void UnlockFirstCharacters()
+    {
+        //Let the first characters to upgrade
+        foreach (int index in firstBlocksID)
+        {
+            blocks[index].GetComponent<Button>().interactable = true;
+        }
     }
 
     private void MainTimer()
@@ -206,6 +241,7 @@ public class GameManager : MonoBehaviour
         if (whitePlusAmount <= 0 && blackPlusAmount <= 0 && !gameStarted)
         {
             QueueManager();
+            UnlockFirstCharacters();
             gameStarted = true;
         }
     }

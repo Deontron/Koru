@@ -149,7 +149,7 @@ public class CharacterManager : MonoBehaviour
         }
     }
 
-    private void DeployCharecter(GameObject block, int blockId)
+    public void DeployCharecter(GameObject block, int blockId)
     {
         //Deploy character if the clicked block is on top or bottom of the matris
         if (!(blockId > 17 && blockId < 63))

@@ -236,7 +236,7 @@ public class CharacterScript : MonoBehaviour
 
         if (x < 9 && x >= 0 && y < 9 && y >= 0)
         {
-            if (blocks[idValue].GetComponent<BlockScript>().isFull && _team == blocks[idValue].GetComponent<BlockScript>().team)
+            if (blocks[idValue].GetComponent<BlockScript>().isFull && _team == blocks[idValue].GetComponent<BlockScript>().team && blocks[idValue].GetComponent<BlockScript>().isInfinity)
             {
                 gm.GameOver(_team);
             }
