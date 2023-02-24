@@ -42,7 +42,6 @@ public class InfinityScript : MonoBehaviour
         {
             yield return new WaitForSeconds(0.5f);
             CheckTheQueue();
-            Debug.Log("sea");
         }
     }
 
