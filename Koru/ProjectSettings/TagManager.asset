@@ -9,6 +9,7 @@ TagManager:
   - Block
   - Matris
   - UIManager
+  - TurnMechanic
   layers:
   - Default
   - TransparentFX

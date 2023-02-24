@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     public int whitePlusAmount;
     public int blackPlusAmount;
 
+    private TurnMechanic tm;
     private CharacterManager cm;
     private UIManager uim;
     private MatrisScript ms;
@@ -36,17 +37,15 @@ public class GameManager : MonoBehaviour
     private float mainTimer;
     private TimeSpan time;
 
-    public int queueCounter;
-    private float queueTimer;
+    public float queueTimer;
     private float queueTime;
-    private bool playerOnesTurn;
-    private bool countDown;
 
     void Start()
     {
         ms = GameObject.FindGameObjectWithTag("Matris").GetComponent<MatrisScript>();
         uim = GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIManager>();
         cm = GameObject.FindGameObjectWithTag("CharacterManager").GetComponent<CharacterManager>();
+        tm = GameObject.FindGameObjectWithTag("TurnMechanic").GetComponent<TurnMechanic>();
     }
 
     void Update()
@@ -66,14 +65,14 @@ public class GameManager : MonoBehaviour
             //Finish the first stage
             if (!gameStarted && time.Minutes >= 1)
             {
-                QueueManager();
+                tm.QueueManager();
                 UnlockFirstCharacters();
                 gameStarted = true;
             }
         }
 
         //Timer for players turn
-        if (countDown)
+        if (tm.countDown)
         {
             QueueTimer();
         }
@@ -99,11 +98,11 @@ public class GameManager : MonoBehaviour
         DeployFirstCharacters();
 
         //Set the game values
-        queueTime = 200;
-        playerOnesTurn = true;
+        queueTime = 20;
+        tm.playerOnesTurn = true;
 
-        whitePlusAmount = 2;
-        blackPlusAmount = 2;
+        whitePlusAmount = 25;
+        blackPlusAmount = 25;
 
         UpdateThePlusTexts();
 
@@ -161,7 +160,7 @@ public class GameManager : MonoBehaviour
         queueTimer += Time.deltaTime;
         if (queueTimer >= queueTime)
         {
-            countDown = false;
+            tm.countDown = false;
             queueTimer = 0;
 
             //Reset the routes if time is over
@@ -171,66 +170,15 @@ public class GameManager : MonoBehaviour
                 activeBlock = null;
             }
 
-            QueueManager();
+            tm.QueueManager();
         }
     }
 
-    private void QueueManager()
-    {
-        if (playerOnesTurn)
-        {
-            NextTurn('w');
-        }
-        else
-        {
-            NextTurn('b');
-        }
-
-        queueCounter++;
-        playerOnesTurn = !playerOnesTurn;
-        countDown = true;
-    }
-
-    private void NextTurn(char team)
-    {
-        //Let the player to play
-        for (int i = 0; i < blocks.Length; i++)
-        {
-            if (blocks[i].GetComponent<BlockScript>().isFull && blocks[i].GetComponent<BlockScript>().team == team)
-            {
-                blocks[i].GetComponent<BlockScript>().playPermission = true;
-            }
-
-            if (blocks[i].GetComponent<BlockScript>().isFull && blocks[i].GetComponent<BlockScript>().team != team)
-            {
-                blocks[i].GetComponent<BlockScript>().playPermission = false;
-            }
-        }
-
-        if (team == 'w')
-        {
-            whiteButton.interactable = true;
-            blackButton.interactable = false;
-        }
-        else
-        {
-            whiteButton.interactable = false;
-            blackButton.interactable = true;
-        }
-
-        //Add a point in 8 turns
-        if (queueCounter % 8 == 0 && queueCounter > 0)
-        {
-            whitePlusAmount++;
-            blackPlusAmount++;
-            UpdateThePlusTexts();
-        }
-    }
 
     public void FastNextTurn()
     {
         queueTimer = 0;
-        QueueManager();
+        tm.QueueManager();
     }
 
     public void UpdateThePlusTexts()
@@ -240,7 +188,7 @@ public class GameManager : MonoBehaviour
 
         if (whitePlusAmount <= 0 && blackPlusAmount <= 0 && !gameStarted)
         {
-            QueueManager();
+            tm.QueueManager();
             UnlockFirstCharacters();
             gameStarted = true;
         }
@@ -251,3 +199,61 @@ public class GameManager : MonoBehaviour
         activeBlock = block;
     }
 }
+
+//private void QueueManager()
+//{
+//    if (playerOnesTurn)
+//    {
+//        NextTurn('w');
+//    }
+//    else
+//    {
+//        NextTurn('b');
+//    }
+
+//    queueCounter++;
+//    playerOnesTurn = !playerOnesTurn;
+//    countDown = true;
+//}
+
+//private void NextTurn(char team)
+//{
+//    //Let the player to play
+//    for (int i = 0; i < blocks.Length; i++)
+//    {
+//        if (blocks[i].GetComponent<BlockScript>().isFull && blocks[i].GetComponent<BlockScript>().team == team)
+//        {
+//            blocks[i].GetComponent<BlockScript>().playPermission = true;
+//        }
+
+//        if (blocks[i].GetComponent<BlockScript>().isFull && blocks[i].GetComponent<BlockScript>().team != team)
+//        {
+//            blocks[i].GetComponent<BlockScript>().playPermission = false;
+//        }
+//    }
+
+//    if (team == 'w')
+//    {
+//        whiteButton.interactable = true;
+//        blackButton.interactable = false;
+//    }
+//    else
+//    {
+//        whiteButton.interactable = false;
+//        blackButton.interactable = true;
+//    }
+
+//    //Add a point in 8 turns
+//    if (queueCounter % 8 == 0 && queueCounter > 0)
+//    {
+//        whitePlusAmount++;
+//        blackPlusAmount++;
+//        UpdateThePlusTexts();
+//    }
+//}
+
+//public void FastNextTurn()
+//{
+//    queueTimer = 0;
+//    QueueManager();
+//}
