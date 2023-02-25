@@ -99,8 +99,8 @@ public class GameManager : MonoBehaviour
         queueTime = 20;
         tm.playerOnesTurn = true;
 
-        whitePlusAmount = 3;
-        blackPlusAmount = 0;
+        whitePlusAmount = 25;
+        blackPlusAmount = 25;
 
         UpdateThePlusTexts();
 
