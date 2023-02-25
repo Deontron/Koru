@@ -163,6 +163,7 @@ public class BlockScript : MonoBehaviour
         transform.GetChild(characterNo - 1).gameObject.GetComponent<Image>().color = teamColor;
         isFull = true;
         isInfinity = true;
+        characterScript.Match(team, blockId);
     }
 
     public void BackToNormal()

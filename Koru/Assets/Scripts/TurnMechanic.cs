@@ -73,5 +73,13 @@ public class TurnMechanic : MonoBehaviour
             gm.blackPlusAmount++;
             gm.UpdateThePlusTexts();
         }
+
+        foreach (GameObject block in blocks)
+        {
+            if (block.GetComponent<BlockScript>().isInfinity && block.GetComponent<InfinityScript>().stunned)
+            {
+                block.GetComponent<InfinityScript>().CheckTheQueue();
+            }
+        }
     }
 }

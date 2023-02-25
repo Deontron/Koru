@@ -6,15 +6,17 @@ using UnityEngine.UI;
 
 public class InfinityScript : MonoBehaviour
 {
-    private TurnMechanic tm;
-    private int stunDuration = 2;
-    private int currentTurn;
+    public bool stunned;
+    private int stunDuration = 1;
+    private int stunTurn;
     private char _team;
+    private TurnMechanic tm;
 
     private void Start()
     {
         tm = GameObject.FindGameObjectWithTag("TurnMechanic").GetComponent<TurnMechanic>();
     }
+
     public void GetStun(char team)
     {
         _team = GetComponent<BlockScript>().team;
@@ -22,28 +24,17 @@ public class InfinityScript : MonoBehaviour
         if (_team == team)
         {
             GetComponent<Button>().interactable = false;
-            currentTurn = tm.queueCounter;
-            StartCoroutine(Timer());
+            stunned = true;
+            stunTurn = tm.queueCounter;
         }
     }
 
-
-    private void CheckTheQueue()
+    public void CheckTheQueue()
     {
-        if ((currentTurn + stunDuration) == tm.queueCounter)
+        if ((stunTurn + stunDuration) == tm.queueCounter)
         {
             GetComponent<Button>().interactable = true;
+            stunned = false;
         }
     }
-
-    IEnumerator Timer()
-    {
-        while ((currentTurn + stunDuration) != tm.queueCounter)
-        {
-            yield return new WaitForSeconds(0.5f);
-            CheckTheQueue();
-        }
-    }
-
-
 }
