@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -25,8 +24,6 @@ public class GameManager : MonoBehaviour
 
     private BlockScript activeBlock;
 
-    private float startTimer;
-    private float startTime = 1;
     private bool firstStage;
     public bool gameStarted;
     private int[] firstBlocksID = { 11, 13, 15, 65, 67, 69 };
@@ -44,6 +41,9 @@ public class GameManager : MonoBehaviour
         uim = GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIManager>();
         cm = GameObject.FindGameObjectWithTag("CharacterManager").GetComponent<CharacterManager>();
         tm = GameObject.FindGameObjectWithTag("TurnMechanic").GetComponent<TurnMechanic>();
+
+        //For the first countdown
+        mainTimer = 4;
     }
 
     void Update()
@@ -82,15 +82,6 @@ public class GameManager : MonoBehaviour
         isGameGoing = false;
     }
 
-    private void FirstTimer()
-    {
-        startTimer += Time.deltaTime;
-        if (startTimer >= startTime)
-        {
-            blocks = ms.blocks;
-            StartTheGame();
-        }
-    }
     private void StartTheGame()
     {
         DeployFirstCharacters();
@@ -146,10 +137,28 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void FirstTimer()
+    {
+        mainTimer -= Time.deltaTime;
+        UpdateTimerText();
+
+        if (mainTimer <= 0)
+        {
+            blocks = ms.blocks;
+            mainTimer = 0;
+            StartTheGame();
+        }
+    }
+
     private void MainTimer()
     {
         mainTimer += Time.deltaTime;
 
+        UpdateTimerText();
+    }
+
+    private void UpdateTimerText()
+    {
         time = TimeSpan.FromSeconds(mainTimer);
 
         textTop.text = time.Minutes.ToString() + " : " + time.Seconds.ToString();
