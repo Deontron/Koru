@@ -117,6 +117,8 @@ public class BlockScript : MonoBehaviour
                 {
                     secondBlock.isInfinity = true;
                     isInfinity = false;
+                    gm.infinityBlocks.Remove(gameObject);
+                    gm.infinityBlocks.Add(secondBlock.gameObject);
                     characterScript.Match(secondBlock.team, secondBlock.blockId);
                 }
 
@@ -163,7 +165,17 @@ public class BlockScript : MonoBehaviour
         transform.GetChild(characterNo - 1).gameObject.GetComponent<Image>().color = teamColor;
         isFull = true;
         isInfinity = true;
+
+        //Look around if there is a friendly infinity
         characterScript.Match(team, blockId);
+
+        gm.infinityBlocks.Add(gameObject);
+
+        //Stun to avoid being hit
+        if (gm.gameStarted)
+        {
+            gameObject.GetComponent<InfinityScript>().GetStun(team);
+        }
     }
 
     public void BackToNormal()

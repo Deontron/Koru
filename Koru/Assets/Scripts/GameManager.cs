@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
     private UIManager uim;
     private MatrisScript ms;
     private GameObject[] blocks;
+    public List<GameObject> infinityBlocks;
 
     private BlockScript activeBlock;
 
@@ -34,7 +35,7 @@ public class GameManager : MonoBehaviour
     private float mainTimer;
     private TimeSpan time;
 
-    public float queueTimer;
+    private float queueTimer;
     private float queueTime;
 
     void Start()
@@ -114,6 +115,9 @@ public class GameManager : MonoBehaviour
         blocks[4].GetComponent<BlockScript>().team = 'w';
         blocks[76].GetComponent<BlockScript>().ChangeToInfinity();
         blocks[76].GetComponent<BlockScript>().team = 'b';
+
+        //infinityBlocks.Add(blocks[4]);
+        //infinityBlocks.Add(blocks[76]);
 
         //Deploy the first 1 characters
         foreach (int index in firstBlocksID)

@@ -66,7 +66,7 @@ public class TurnMechanic : MonoBehaviour
             blackButton.interactable = true;
         }
 
-        //Add a point in ... turns
+        //Add a point to each player in ... turns
         if (queueCounter % 8 == 0 && queueCounter > 0)
         {
             gm.whitePlusAmount++;
@@ -74,9 +74,9 @@ public class TurnMechanic : MonoBehaviour
             gm.UpdateThePlusTexts();
         }
 
-        foreach (GameObject block in blocks)
+        foreach (GameObject block in gm.infinityBlocks)
         {
-            if (block.GetComponent<BlockScript>().isInfinity && block.GetComponent<InfinityScript>().stunned)
+            if (block.GetComponent<InfinityScript>().stunned)
             {
                 block.GetComponent<InfinityScript>().CheckTheQueue();
             }
