@@ -31,6 +31,7 @@ public class GameManager : MonoBehaviour
     private bool isGameGoing;
     private float mainTimer;
     private TimeSpan time;
+    private TimeSpan time2;
 
     private float queueTimer;
     private float queueTime;
@@ -87,7 +88,7 @@ public class GameManager : MonoBehaviour
         DeployFirstCharacters();
 
         //Set the game values
-        queueTime = 20;
+        queueTime = 60;
         tm.playerOnesTurn = true;
 
         whitePlusAmount = 25;
@@ -161,13 +162,23 @@ public class GameManager : MonoBehaviour
     {
         time = TimeSpan.FromSeconds(mainTimer);
 
-        textTop.text = time.Minutes.ToString() + " : " + time.Seconds.ToString();
-        textBottom.text = time.Minutes.ToString() + " : " + time.Seconds.ToString();
+        //textTop.text = time.Minutes.ToString() + " : " + time.Seconds.ToString();
+        //textBottom.text = time.Minutes.ToString() + " : " + time.Seconds.ToString();
+    }
+    
+    private void UpdateTimerTextQueue()
+    {
+        time2 = TimeSpan.FromSeconds(queueTimer);
+
+        textTop.text = time2.Minutes.ToString() + " : " + time2.Seconds.ToString();
+        textBottom.text = time2.Minutes.ToString() + " : " + time2.Seconds.ToString();
     }
 
     private void QueueTimer()
     {
         queueTimer += Time.deltaTime;
+
+        UpdateTimerTextQueue();
         if (queueTimer >= queueTime)
         {
             tm.countDown = false;
