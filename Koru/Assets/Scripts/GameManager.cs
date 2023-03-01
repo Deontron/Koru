@@ -31,7 +31,6 @@ public class GameManager : MonoBehaviour
     private bool isGameGoing;
     private float mainTimer;
     private TimeSpan time;
-    private TimeSpan time2;
 
     private float queueTimer;
     private float queueTime;
@@ -62,8 +61,9 @@ public class GameManager : MonoBehaviour
             }
 
             //Finish the first stage
-            if (!gameStarted && time.Minutes >= 1)
+            if (!gameStarted && mainTimer <= 0)
             {
+                mainTimer = 60;
                 tm.QueueManager();
                 UnlockFirstCharacters();
                 gameStarted = true;
@@ -91,8 +91,8 @@ public class GameManager : MonoBehaviour
         queueTime = 60;
         tm.playerOnesTurn = true;
 
-        whitePlusAmount = 25;
-        blackPlusAmount = 25;
+        whitePlusAmount = 5;
+        blackPlusAmount = 5;
 
         UpdateThePlusTexts();
 
@@ -107,9 +107,6 @@ public class GameManager : MonoBehaviour
         blocks[4].GetComponent<BlockScript>().team = 'w';
         blocks[76].GetComponent<BlockScript>().ChangeToInfinity();
         blocks[76].GetComponent<BlockScript>().team = 'b';
-
-        //infinityBlocks.Add(blocks[4]);
-        //infinityBlocks.Add(blocks[76]);
 
         //Deploy the first 1 characters
         foreach (int index in firstBlocksID)
@@ -141,48 +138,47 @@ public class GameManager : MonoBehaviour
     private void FirstTimer()
     {
         mainTimer -= Time.deltaTime;
-        UpdateTimerText();
+        UpdateTimerText(mainTimer);
 
         if (mainTimer <= 0)
         {
             blocks = ms.blocks;
-            mainTimer = 0;
+            mainTimer = 61;
             StartTheGame();
         }
     }
 
     private void MainTimer()
     {
-        mainTimer += Time.deltaTime;
-
-        UpdateTimerText();
+        if (gameStarted)
+        {
+            mainTimer += Time.deltaTime;
+        }
+        else
+        {
+            mainTimer -= Time.deltaTime;
+            UpdateTimerText(mainTimer);
+        }
     }
 
-    private void UpdateTimerText()
+    private void UpdateTimerText(float _timer)
     {
-        time = TimeSpan.FromSeconds(mainTimer);
+        time = TimeSpan.FromSeconds(_timer);
 
-        //textTop.text = time.Minutes.ToString() + " : " + time.Seconds.ToString();
-        //textBottom.text = time.Minutes.ToString() + " : " + time.Seconds.ToString();
-    }
-    
-    private void UpdateTimerTextQueue()
-    {
-        time2 = TimeSpan.FromSeconds(queueTimer);
-
-        textTop.text = time2.Minutes.ToString() + " : " + time2.Seconds.ToString();
-        textBottom.text = time2.Minutes.ToString() + " : " + time2.Seconds.ToString();
+        textTop.text = time.Minutes.ToString() + " : " + time.Seconds.ToString();
+        textBottom.text = time.Minutes.ToString() + " : " + time.Seconds.ToString();
     }
 
     private void QueueTimer()
     {
-        queueTimer += Time.deltaTime;
+        queueTimer -= Time.deltaTime;
 
-        UpdateTimerTextQueue();
-        if (queueTimer >= queueTime)
+        UpdateTimerText(queueTimer);
+
+        if (queueTimer <= 0)
         {
             tm.countDown = false;
-            queueTimer = 0;
+            queueTimer = queueTime;
 
             //Reset the routes if time is over
             if (activeBlock != null)

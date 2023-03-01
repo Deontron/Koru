@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class InfinityScript : MonoBehaviour
 {
+    public bool isSecondInfinity;
     public bool stunned;
     private int stunDuration = 1;
     private int stunTurn;

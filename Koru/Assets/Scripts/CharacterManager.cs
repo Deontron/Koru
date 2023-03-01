@@ -180,9 +180,10 @@ public class CharacterManager : MonoBehaviour
         {
             if (_team == 'w')
             {
-                if (!secondWhiteInfinity && !firstBlock.GetComponent<BlockScript>().isInfinity)
+                if (!secondWhiteInfinity && !firstBlock.GetComponent<BlockScript>().isInfinity && !secondBlock.GetComponent<InfinityScript>().isSecondInfinity)
                 {
                     firstBlock.GetComponent<BlockScript>().ChangeToInfinity();
+                    firstBlock.GetComponent<InfinityScript>().isSecondInfinity = true;
                     secondWhiteInfinity = true;
                 }
                 else
@@ -199,9 +200,10 @@ public class CharacterManager : MonoBehaviour
             }
             else if (_team == 'b')
             {
-                if (!secondBlackInfinity && !firstBlock.GetComponent<BlockScript>().isInfinity)
+                if (!secondBlackInfinity && !firstBlock.GetComponent<BlockScript>().isInfinity && !secondBlock.GetComponent<InfinityScript>().isSecondInfinity)
                 {
                     firstBlock.GetComponent<BlockScript>().ChangeToInfinity();
+                    firstBlock.GetComponent<InfinityScript>().isSecondInfinity = true;
                     secondBlackInfinity = true;
                 }
                 else

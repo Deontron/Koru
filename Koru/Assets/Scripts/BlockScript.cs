@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Threading;
 using UnityEngine;
 using UnityEngine.UI;
@@ -116,6 +117,8 @@ public class BlockScript : MonoBehaviour
                 if (isInfinity)
                 {
                     secondBlock.isInfinity = true;
+                    block.GetComponent<InfinityScript>().isSecondInfinity = true;
+                    GetComponent<InfinityScript>().isSecondInfinity = false;
                     isInfinity = false;
                     gm.infinityBlocks.Remove(gameObject);
                     gm.infinityBlocks.Add(secondBlock.gameObject);
@@ -171,11 +174,11 @@ public class BlockScript : MonoBehaviour
 
         gm.infinityBlocks.Add(gameObject);
 
-        //Stun to avoid being hit
-        if (gm.gameStarted)
-        {
-            gameObject.GetComponent<InfinityScript>().GetStun(team);
-        }
+        ////Stun to avoid being hit
+        //if (gm.gameStarted)
+        //{
+        //    gameObject.GetComponent<InfinityScript>().GetStun(team);
+        //}
     }
 
     public void BackToNormal()
