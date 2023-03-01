@@ -64,8 +64,8 @@ public class GameManager : MonoBehaviour
             if (!gameStarted && mainTimer <= 0)
             {
                 mainTimer = 60;
-                tm.QueueManager();
                 UnlockFirstCharacters();
+                tm.QueueManager();
                 gameStarted = true;
             }
         }
@@ -88,11 +88,12 @@ public class GameManager : MonoBehaviour
         DeployFirstCharacters();
 
         //Set the game values
-        queueTime = 60;
-        tm.playerOnesTurn = true;
+        queueTime = 10;
+        queueTimer = queueTime;
+        tm.playerBlacksTurn = true;
 
-        whitePlusAmount = 5;
-        blackPlusAmount = 5;
+        whitePlusAmount = 3;
+        blackPlusAmount = 3;
 
         UpdateThePlusTexts();
 
@@ -143,7 +144,7 @@ public class GameManager : MonoBehaviour
         if (mainTimer <= 0)
         {
             blocks = ms.blocks;
-            mainTimer = 61;
+            mainTimer = 11;
             StartTheGame();
         }
     }
@@ -180,20 +181,27 @@ public class GameManager : MonoBehaviour
             tm.countDown = false;
             queueTimer = queueTime;
 
+                if (tm.playerBlacksTurn)
+                {
+                    GameOver('w');
+                }
+                else
+                {
+                    GameOver('b');
+                }
+
             //Reset the routes if time is over
             if (activeBlock != null)
             {
                 activeBlock.BackToNormal();
                 activeBlock = null;
             }
-
-            tm.QueueManager();
         }
     }
 
     public void FastNextTurn()
     {
-        queueTimer = 0;
+        queueTimer = queueTime;
         tm.QueueManager();
     }
 

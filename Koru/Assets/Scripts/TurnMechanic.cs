@@ -14,7 +14,7 @@ public class TurnMechanic : MonoBehaviour
 
     public int queueCounter;
     public bool countDown;
-    public bool playerOnesTurn;
+    public bool playerBlacksTurn;
 
     void Start()
     {
@@ -25,7 +25,7 @@ public class TurnMechanic : MonoBehaviour
 
     public void QueueManager()
     {
-        if (playerOnesTurn)
+        if (playerBlacksTurn)
         {
             NextTurn('w');
         }
@@ -35,7 +35,7 @@ public class TurnMechanic : MonoBehaviour
         }
 
         queueCounter++;
-        playerOnesTurn = !playerOnesTurn;
+        playerBlacksTurn = !playerBlacksTurn;
         countDown = true;
     }
 
